@@ -31,6 +31,11 @@ public class ConveyorController : MonoBehaviour
     [SerializeField] float m_decreaseConveyorTimeToMove = 0.25f;
     [SerializeField] float m_minConveyorTimeToMoveValue = 2.5f;
 
+    [Header("Debug")]
+    [SerializeField] bool m_showGizmos = false;
+    [SerializeField] float m_gizmosSize = 1;
+    [SerializeField] Color m_gizmosColor = Color.magenta;
+
     float m_actualTimeToMovePot;
     public float ActualTimeToMovePot { get => m_actualTimeToMovePot; }
 
@@ -70,6 +75,19 @@ public class ConveyorController : MonoBehaviour
         // {
         //     On_PotIsBreak();
         // }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!m_showGizmos)
+            return;
+
+        Gizmos.color = m_gizmosColor;
+        Gizmos.DrawSphere(m_startPos.position, m_gizmosSize);
+        Gizmos.DrawSphere(m_endPos.position, m_gizmosSize);
+        Gizmos.DrawSphere(m_startPlayerPos.position, m_gizmosSize);
+        Gizmos.DrawSphere(m_endAnimZPos.position, m_gizmosSize);
+        Gizmos.DrawSphere(m_endAnimYPos.position, m_gizmosSize);
     }
 
     IEnumerator WaitTimeToSpawnPot()

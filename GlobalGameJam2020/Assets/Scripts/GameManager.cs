@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
 	{
 		m_actualTimer = m_gameDuration;
 
+		UpdateScoreText(1);
+		UpdateScoreText(2);
+
 		On_PartyIsStarted();
 	}
 
@@ -142,8 +145,6 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotIsBroken(int playerId)
 	{
-		CalculateScore(playerId);
-
 		if(playerId == 1)
 			m_actualComboNbrP1 = 1;
 
@@ -152,8 +153,6 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
 	{
-		CalculateScore(playerId);
-
 		if(playerId == 1)
 			m_actualComboNbrP1 = 1;
 
