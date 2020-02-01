@@ -23,15 +23,16 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         OnResetTimer();
     }
-
+    bool go;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             OnSpriteGeneration(nbrOfInputToSpawn, false);
             OnResetTimer();
+            go = true;
         }
-        else
+        else if(go)
         {
             OnPassingTime(timeForPatternWithoutCombo);
         }
@@ -68,7 +69,10 @@ public class ProceduralInputGenerationController : MonoBehaviour
             int random = Random.Range(0, allInputs.Length);
             GameObject go = Instantiate(allInputs[random], inputParent);
             InstantiatedInput.Add(go);
+            InputScript input = go.GetComponent<InputScript>();
+            input.Controller = this;
         }
+        InstantiatedInput[0].GetComponent<InputScript>().IsCheckable = true;
     }
 
     public void DestroyInputsOnLists(List<GameObject> OnActiveList)
@@ -78,5 +82,16 @@ public class ProceduralInputGenerationController : MonoBehaviour
             Destroy(OnActiveList[i].gameObject);
         }
         OnActiveList.Clear();
+    }
+
+    int inputCount;
+    public void ActivateCheckableOnNextInput()
+    {
+        if(inputCount < InstantiatedInput.Count)
+        {
+            inputCount++;
+            InstantiatedInput[inputCount].GetComponent<InputScript>().IsCheckable = true;
+        }
+        
     }
 }
