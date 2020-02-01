@@ -157,18 +157,18 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotIsBroken(int playerId)
 	{
-		if(playerId == 1 && m_actualComboNbrP1 >= 1)
+		if(playerId == 1 && m_actualComboNbrP1 > 1)
 			m_actualComboNbrP1 --;
 
-		if(playerId == 2 && m_actualComboNbrP2 >= 1)
+		if(playerId == 2 && m_actualComboNbrP2 > 1)
 			m_actualComboNbrP2 --;
 	}
 	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
 	{
-		if(playerId == 1 && m_actualComboNbrP1 >= 1)
+		if(playerId == 1 && m_actualComboNbrP1 > 1)
 			m_actualComboNbrP1 --;
 
-		if(playerId == 2 && m_actualComboNbrP2 >= 1)
+		if(playerId == 2 && m_actualComboNbrP2 > 1)
 			m_actualComboNbrP2 --;
 	}
 
