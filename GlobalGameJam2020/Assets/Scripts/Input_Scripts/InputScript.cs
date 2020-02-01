@@ -42,12 +42,21 @@ public class InputScript : MonoBehaviour
     //{
     //    return Input.GetButtonDown(input);
     //}
+    bool BoolArray(int i0, int i1, int i2, int i3, int i4, int i5, int i6)
+    {
+        if(isPressed[i0] && isPressed[i1] && isPressed[i2] && isPressed[i3] && isPressed[i4] && isPressed[i5] && isPressed[i6])
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     private void Update()
     {
         if (IsCheckable)
         {
-            if (Input.GetButtonDown("A_P" + PlayerID) || !isPressed[0])
+            if ((Input.GetButtonDown("A_P" + PlayerID) && BoolArray(1, 2, 3, 4, 5, 6, 7)) || !isPressed[0] )
             {
                 _currentInput = "a";
                 isPressed[0] = false;
@@ -59,7 +68,7 @@ public class InputScript : MonoBehaviour
                     isPressed[0] = true;
                 }
             }
-            else if (Input.GetButtonDown("B_P" + PlayerID) || !isPressed[1])
+            else if ((Input.GetButtonDown("B_P" + PlayerID) && BoolArray(0, 2, 3, 4, 5, 6, 7)) || !isPressed[1])
             {
                 _currentInput = "b";
                 isPressed[1] = false;
@@ -71,7 +80,7 @@ public class InputScript : MonoBehaviour
                     isPressed[1] = true;
                 }
             }
-            else if (Input.GetButtonDown("X_P" + PlayerID) || !isPressed[2])
+            else if ((Input.GetButtonDown("X_P" + PlayerID) && BoolArray(0, 1, 3, 4, 5, 6, 7)) || !isPressed[2])
             {
                 _currentInput = "x";
                 isPressed[2] = false;
@@ -83,7 +92,7 @@ public class InputScript : MonoBehaviour
                     isPressed[2] = true;
                 }
             }
-            else if (Input.GetButtonDown("Y_P" + PlayerID) || !isPressed[3])
+            else if ((Input.GetButtonDown("Y_P" + PlayerID) && BoolArray(0, 1, 2, 4, 5, 6, 7)) || !isPressed[3] )
             {
                 _currentInput = "y";
                 isPressed[3] = false;
@@ -95,7 +104,7 @@ public class InputScript : MonoBehaviour
                     isPressed[3] = true;
                 }
             }
-            else if((Input.GetAxisRaw("DPAD_v_P" + PlayerID) > 0f && Input.GetAxisRaw("DPAD_h_P" + PlayerID) == 0f) || !isPressed[4])
+            else if((Input.GetAxisRaw("DPAD_v_P" + PlayerID) > 0f && Input.GetAxisRaw("DPAD_h_P" + PlayerID) == 0f && BoolArray(0, 1, 2, 3, 5, 6, 7)) || !isPressed[4] )
             {
                 _currentInput = "up";
                 isPressed[4] = false;
@@ -107,7 +116,7 @@ public class InputScript : MonoBehaviour
                     isPressed[4] = true;
                 }
             }
-            else if ((Input.GetAxisRaw("DPAD_v_P" + PlayerID) < 0f && Input.GetAxisRaw("DPAD_h_P" + PlayerID) == 0f) || !isPressed[5])
+            else if ((Input.GetAxisRaw("DPAD_v_P" + PlayerID) < 0f && Input.GetAxisRaw("DPAD_h_P" + PlayerID) == 0f && BoolArray(0, 1, 2, 3, 4, 6, 7)) || !isPressed[5])
             {
                 _currentInput = "down";
                 isPressed[5] = false;
@@ -119,7 +128,7 @@ public class InputScript : MonoBehaviour
                     isPressed[5] = true;
                 }
             }
-            else if ((Input.GetAxisRaw("DPAD_h_P" + PlayerID) > 0f && Input.GetAxisRaw("DPAD_v_P" + PlayerID) == 0f) || !isPressed[6])
+            else if ((Input.GetAxisRaw("DPAD_h_P" + PlayerID) > 0f && Input.GetAxisRaw("DPAD_v_P" + PlayerID) == 0f && BoolArray(0, 1, 2, 3, 4, 5, 7)) || !isPressed[6])
             {
                 _currentInput = "right";
                 isPressed[6] = false;
@@ -131,7 +140,7 @@ public class InputScript : MonoBehaviour
                     isPressed[6] = true;
                 }
             }
-            else if ((Input.GetAxisRaw("DPAD_h_P" + PlayerID) < 0f && Input.GetAxisRaw("DPAD_v_P" + PlayerID) == 0f) || !isPressed[7])
+            else if ((Input.GetAxisRaw("DPAD_h_P" + PlayerID) < 0f && Input.GetAxisRaw("DPAD_v_P" + PlayerID) == 0f && BoolArray(0, 1, 2, 3, 4, 5, 6)) || !isPressed[7])
             {
                 _currentInput = "left";
                 isPressed[7] = false;
