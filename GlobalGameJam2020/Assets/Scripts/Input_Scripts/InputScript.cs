@@ -208,7 +208,7 @@ public class InputScript : MonoBehaviour
 
     void InputFailure()
     {
-        controller.OnSpriteGeneration(4, false);
+        controller.OnSpriteGeneration();
         controller.OnResetTimer();
     }
     #endregion
