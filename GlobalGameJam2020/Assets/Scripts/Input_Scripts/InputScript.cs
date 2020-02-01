@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InputScript : MonoBehaviour
 {
     public Image m_childImage;
+    public Image m_whiteBackground;
     [Space]
     public Sprite[] m_feedBack;
 
@@ -17,6 +18,10 @@ public class InputScript : MonoBehaviour
     public float timeOfAnim = 1f;
     public float maxScale;
     float minScale;
+    [Space]
+    [Header("FadeWhite Input FeedBack")]
+    public AnimationCurve animationFadeWhite;
+    public float timeOfFadeWhiteAnim = 1f;
     [Space]
     [Header("Animation Wrong Input FeedBack")]
     public AnimationCurve animationWrongInput;
@@ -51,6 +56,7 @@ public class InputScript : MonoBehaviour
         ResetBoolArray();
         minScale = transform.localScale.x;
         minEulerRotation = transform.localEulerAngles.z;
+        childMinScale = m_childImage.transform.localScale.z;
         //allWrongInputs = new List<string>{ "a", "b", "x", "y", "up", "right", "down", "left" };
 
         //for (int i = 0, l = allWrongInputs.Count; i < l; ++i)
@@ -190,6 +196,7 @@ public class InputScript : MonoBehaviour
         m_childImage.gameObject.SetActive(true);
 
         StartCoroutine(InputFeedBack(animationSelection, timeOfAnim));
+        StartCoroutine(InputFadeWhiteFeedBack(animationFadeWhite, timeOfFadeWhiteAnim));
         StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
 
         if (CheckPressedInput(pressedInput))
@@ -226,6 +233,23 @@ public class InputScript : MonoBehaviour
         _currentTimeOfAnimation = 0;
     }
 
+    IEnumerator InputFadeWhiteFeedBack(AnimationCurve curve, float timeOfAnimation)
+    {
+        float _currentTimeOfAnimation = 0;
+        while (_currentTimeOfAnimation / timeOfAnimation <= 1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            _currentTimeOfAnimation += Time.deltaTime;
+
+            float height = curve.Evaluate(_currentTimeOfAnimation / timeOfAnimation);
+
+            Color m_color = m_whiteBackground.color;
+            m_color.a = Mathf.Lerp(0, 1, height);
+            m_whiteBackground.color = m_color;
+        }
+        _currentTimeOfAnimation = 0;
+    }
+
     IEnumerator InputWrongFeedBack(AnimationCurve curve, float timeOfAnimation)
     {
         float _currentTimeOfAnimation = 0;
@@ -236,7 +260,15 @@ public class InputScript : MonoBehaviour
 
             float height = curve.Evaluate(_currentTimeOfAnimation / timeOfAnimation);
             Vector3 rot = transform.rotation.eulerAngles;
-            rot.z = Mathf.Lerp(minEulerRotation, maxEulerRotation, height);
+            rot.z = maxEulerRotation * height;
+            //if (height > 0)
+            //{
+            //    rot.z = Mathf.Lerp(minEulerRotation, maxEulerRotation, height);
+            //}
+            //else
+            //{
+            //    rot.z = Mathf.Lerp(minEulerRotation, maxEulerRotation, height);
+            //}
             transform.localEulerAngles = rot;
         }
         _currentTimeOfAnimation = 0;
