@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd4ea6ae17812847bef29ad35b45c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 1
   timeBar: {fileID: 7252846098444674882}
   allInputs:
   - {fileID: 276834506566313985, guid: f4d5d4fe752bbdb42b66b6a2b656a3be, type: 3}

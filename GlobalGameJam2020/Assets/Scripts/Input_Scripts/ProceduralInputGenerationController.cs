@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class ProceduralInputGenerationController : MonoBehaviour
 {
+    [Range(1,2)]
+    public int playerID;
+    [Space]
     public Image timeBar;
     [Space]
     public GameObject[] allInputs;
@@ -19,11 +22,13 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     List<GameObject> InstantiatedInput = new List<GameObject>();
 
+    int inputCount;
+    bool go;
+
     private void Start()
     {
         OnResetTimer();
     }
-    bool go;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -41,6 +46,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public void OnResetTimer()
     {
         _currentPassingTime = timeForPatternWithoutCombo;
+        inputCount = 0;
     }
 
 
@@ -54,6 +60,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
         else
         {
             OnResetTimer();
+            OnSpriteGeneration(nbrOfInputToSpawn, false);
         }
     }
 
@@ -71,6 +78,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
             InstantiatedInput.Add(go);
             InputScript input = go.GetComponent<InputScript>();
             input.Controller = this;
+            input.PlayerID = playerID;
         }
         InstantiatedInput[0].GetComponent<InputScript>().IsCheckable = true;
     }
@@ -84,14 +92,19 @@ public class ProceduralInputGenerationController : MonoBehaviour
         OnActiveList.Clear();
     }
 
-    int inputCount;
     public void ActivateCheckableOnNextInput()
     {
+        inputCount++;
+
         if(inputCount < InstantiatedInput.Count)
         {
-            inputCount++;
             InstantiatedInput[inputCount].GetComponent<InputScript>().IsCheckable = true;
         }
-        
+        else if(inputCount == InstantiatedInput.Count)
+        {
+            OnSpriteGeneration(nbrOfInputToSpawn, false);
+            OnResetTimer();
+        }
+
     }
 }
