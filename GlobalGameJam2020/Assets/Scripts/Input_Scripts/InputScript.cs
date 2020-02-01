@@ -19,6 +19,9 @@ public class InputScript : MonoBehaviour
     public bool IsCheckable { get => _isCheckable; set => _isCheckable = value; }
     public int PlayerID { get => _playerID; set => _playerID = value; }
 
+    ConveyorController m_convoyer;
+    public ConveyorController Convoyer { get => m_convoyer; set => m_convoyer = value; }
+
     private void Start()
     {
 
@@ -210,6 +213,7 @@ public class InputScript : MonoBehaviour
     {
         controller.OnSpriteGeneration();
         controller.OnResetTimer();
+        m_convoyer.On_PotIsBreak();
     }
     #endregion
 }

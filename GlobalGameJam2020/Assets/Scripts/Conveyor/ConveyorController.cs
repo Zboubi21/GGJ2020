@@ -5,6 +5,8 @@ using UnityEngine;
 public class ConveyorController : MonoBehaviour
 {
     
+    [SerializeField] ProceduralInputGenerationController m_inputGenerationController;
+    [Space]
     [SerializeField] GameObject[] m_objectToSpawn = new GameObject[1];
     [SerializeField] Transform m_spawnRoot;
 
@@ -37,8 +39,8 @@ public class ConveyorController : MonoBehaviour
 
     Pot m_actualRepairPot;
     PlayerController m_player;
-
     List<Pot> m_potsOnConveyor = new List<Pot>();
+    GameManager m_gameManager;
 
     void Awake()
     {
@@ -53,16 +55,21 @@ public class ConveyorController : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        m_gameManager = GameManager.s_instance;
+    }
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            On_PotIsRepair();
-        }
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            On_PotIsBreak();
-        }
+        // if(Input.GetKeyDown(KeyCode.W))
+        // {
+        //     On_PotIsRepair();
+        // }
+        // if(Input.GetKeyDown(KeyCode.F))
+        // {
+        //     On_PotIsBreak();
+        // }
     }
 
     IEnumerator WaitTimeToSpawnPot()
@@ -77,6 +84,11 @@ public class ConveyorController : MonoBehaviour
         m_potsOnConveyor.Add(m_actualRepairPot);
         m_actualRepairPot.StartToMovePot(this);
         m_player.On_StartToFollowPot(true);
+
+        m_inputGenerationController.timeForPatternWithoutCombo = m_actualTimeToMovePot;
+        m_inputGenerationController.OnSpriteGeneration();
+        m_inputGenerationController.OnResetTimer();
+        m_inputGenerationController.ActivateTimer = true;
     }
 
     void SetConveyorSpeed()
@@ -108,6 +120,12 @@ public class ConveyorController : MonoBehaviour
         }
     }
 
+    void StopTimerInputGeneration()
+    {
+        m_inputGenerationController.DestroyInputsOnLists(m_inputGenerationController.InstantiatedInput);
+        m_inputGenerationController.ActivateTimer = false;
+    }
+
     public void SetPlayerToConveyor(PlayerController player)
     {
         m_player = player;
@@ -124,6 +142,10 @@ public class ConveyorController : MonoBehaviour
             m_player.On_StartToFollowPot(false);
             m_player.MoveToStartPos();
             On_ResetConveyorSpeed();
+
+            m_gameManager.On_PotArrivedAtTheEndOfConveyor(m_player.m_playerId);
+
+            StopTimerInputGeneration();
         }
     }
 
@@ -133,8 +155,11 @@ public class ConveyorController : MonoBehaviour
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
         On_IncreaseConveyorSpeed();
-
         SetPotsSpeed();
+
+        m_gameManager.On_PotIsRepaired(m_player.m_playerId);
+
+        StopTimerInputGeneration();
     }
     public void On_PotIsBreak()
     {
@@ -142,6 +167,10 @@ public class ConveyorController : MonoBehaviour
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
         On_ResetConveyorSpeed();
+
+        m_gameManager.On_PotIsBroken(m_player.m_playerId);
+
+        StopTimerInputGeneration();
     }
 
     public void On_PotIsDestroy(Pot pot)

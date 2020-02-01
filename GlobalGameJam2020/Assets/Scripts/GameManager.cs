@@ -17,8 +17,19 @@ public class GameManager : MonoBehaviour
 	[Header("Timer")]
 	[SerializeField] TextMeshProUGUI m_timerTextValue;
 
+	[Header("Score")]
+	[SerializeField] TextMeshProUGUI m_scoreTxtP1;
+	[SerializeField] TextMeshProUGUI m_scoreTxtP2;
+	[Space]
+	[SerializeField] int m_potScoreValue = 1;
+
 	float m_actualTimer;
 	bool m_partyIsFinished = false;
+
+	int m_actualScoreP1 = 0;
+	int m_actualComboNbrP1 = 1;
+	int m_actualScoreP2 = 0;
+	int m_actualComboNbrP2 = 1;
 
     void Awake()
     {
@@ -38,7 +49,14 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
-		m_actualTimer -= Time.deltaTime;
+		if(m_actualTimer - Time.deltaTime > 0)
+		{
+			m_actualTimer -= Time.deltaTime;
+		}
+		else
+		{
+			m_actualTimer = 0;
+		}
 		UpdateTimerText();
 		if(m_actualTimer < 0 && !m_partyIsFinished)
 		{
@@ -47,7 +65,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public void UpdateTimerText()
+	void UpdateTimerText()
 	{
 		int minutes = Mathf.FloorToInt(m_actualTimer / 60f);
 		int seconds = Mathf.RoundToInt(m_actualTimer % 60f);
@@ -61,8 +79,36 @@ public class GameManager : MonoBehaviour
 		}
 
 		if(m_timerTextValue != null)
-		{
 			m_timerTextValue.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+	}
+
+	void CalculateScore(int playerId)
+	{
+		if(playerId == 1)
+		{
+			m_actualScoreP1 += m_potScoreValue * m_actualComboNbrP1;
+		}
+		else
+		{
+			m_actualScoreP2 += m_potScoreValue * m_actualComboNbrP2;
+		}
+		UpdateScoreText(playerId);
+	}
+	void UpdateScoreText(int playerId)
+	{
+		if(playerId == 1)
+		{
+			if(m_scoreTxtP1 != null)
+			{
+				m_scoreTxtP1.text = m_actualScoreP1.ToString();
+			}
+		}
+		else
+		{
+			if(m_scoreTxtP2 != null)
+			{
+				m_scoreTxtP2.text = m_actualScoreP2.ToString();
+			}
 		}
 	}
 
@@ -82,6 +128,37 @@ public class GameManager : MonoBehaviour
 	void On_PartyIsFinished()
 	{
 
+	}
+
+	public void On_PotIsRepaired(int playerId)
+	{
+		CalculateScore(playerId);
+
+		if(playerId == 1)
+			m_actualComboNbrP1 ++;
+
+		if(playerId == 2)
+			m_actualComboNbrP2 ++;
+	}
+	public void On_PotIsBroken(int playerId)
+	{
+		CalculateScore(playerId);
+
+		if(playerId == 1)
+			m_actualComboNbrP1 = 1;
+
+		if(playerId == 2)
+			m_actualComboNbrP2 = 1;
+	}
+	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
+	{
+		CalculateScore(playerId);
+
+		if(playerId == 1)
+			m_actualComboNbrP1 = 1;
+
+		if(playerId == 2)
+			m_actualComboNbrP2 = 1;
 	}
 
 }

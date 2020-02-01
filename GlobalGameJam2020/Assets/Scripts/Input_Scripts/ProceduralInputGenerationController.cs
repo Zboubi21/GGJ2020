@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ProceduralInputGenerationController : MonoBehaviour
 {
-    [Range(1,2)]
-    public int playerID;
+    [SerializeField] PlayerController m_playerController;
+    [SerializeField] ConveyorController m_conveyorController;
     [Space]
     public Image timeBar;
     [Space]
@@ -20,13 +20,18 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public float timeForPatternWithoutCombo;
     float _currentPassingTime;
 
-    List<GameObject> InstantiatedInput = new List<GameObject>();
+    List<GameObject> instantiatedInput = new List<GameObject>();
+    public List<GameObject> InstantiatedInput { get => instantiatedInput; }
 
     int inputCount;
-    bool go;
+    bool activateTimer;
+    public bool ActivateTimer { get => activateTimer; set => activateTimer = value; }
+
+    int m_playerID;
 
     private void Start()
     {
+        m_playerID = m_playerController.m_playerId;
         OnResetTimer();
     }
     void Update()
@@ -35,9 +40,9 @@ public class ProceduralInputGenerationController : MonoBehaviour
         {
             OnSpriteGeneration();
             OnResetTimer();
-            go = true;
+            ActivateTimer = true;
         }
-        else if(go)
+        else if(ActivateTimer)
         {
             OnPassingTime(timeForPatternWithoutCombo);
         }
@@ -66,7 +71,6 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     public void OnSpriteGeneration()
     {
-
         DestroyInputsOnLists(InstantiatedInput);
 
         for (int i = 0; i < nbrOfInputToSpawn; ++i)
@@ -75,8 +79,9 @@ public class ProceduralInputGenerationController : MonoBehaviour
             GameObject go = Instantiate(allInputs[random], inputParent);
             InstantiatedInput.Add(go);
             InputScript input = go.GetComponent<InputScript>();
+            input.Convoyer = m_conveyorController;
             input.Controller = this;
-            input.PlayerID = playerID;
+            input.PlayerID = m_playerID;
         }
         InstantiatedInput[0].GetComponent<InputScript>().IsCheckable = true;
     }
@@ -102,6 +107,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
         {
             OnSpriteGeneration();
             OnResetTimer();
+            m_conveyorController.On_PotIsRepair();
         }
 
     }
