@@ -35,6 +35,8 @@ public class InputScript : MonoBehaviour
     public float childMaxScale = 1f;
     float childMinScale;
     [Space]
+    public AudioSource source;
+    public AudioClip[] inputSound;
     string _currentInput;
     List<string> allWrongInputs;
     int _playerID;
@@ -185,10 +187,17 @@ public class InputScript : MonoBehaviour
                     isPressed[7] = true;
                 }
             }
+            if (!go)
+            {
+                Color m_color = m_whiteBackground.color;
+                m_color.a = 0;
+                m_whiteBackground.color = m_color;
+                go = true;
+            }
         }
     }
 
-
+    bool go;
     #region Private Methods
 
     void CheckValidation(string pressedInput)
@@ -198,6 +207,13 @@ public class InputScript : MonoBehaviour
         StartCoroutine(InputFeedBack(animationSelection, timeOfAnim));
         StartCoroutine(InputFadeWhiteFeedBack(animationFadeWhite, timeOfFadeWhiteAnim));
         StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
+
+        if(source != null && inputSound[0] != null)
+        {
+            int random = Random.Range(0, inputSound.Length);
+            source.clip = inputSound[random];
+            source.Play();
+        }
 
         if (CheckPressedInput(pressedInput))
         {
