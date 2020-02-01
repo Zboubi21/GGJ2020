@@ -13,6 +13,9 @@ public class ConveyorController : MonoBehaviour
     public Transform m_endPos;
     public Transform m_startPlayerPos;
 
+    [Header("Rotators")]
+    [SerializeField] ConveyorRotator[] m_rotators;
+
     [Header("End Pot Anim Positions")]
     public Transform m_endAnimZPos;
     public Transform m_endAnimYPos;
@@ -20,20 +23,34 @@ public class ConveyorController : MonoBehaviour
     [Space]
     [SerializeField] float m_waitTimeToSpawnPot = 1;
     [Space]
-    public float m_timeToMovePot = 3;
-    [Space]
-    float m_speed;
-    public float Speed { get => m_speed; set => m_speed = value; }
+    public float m_startTimeToMovePot = 5;
 
-    Pot m_actualRepairpot;
+    [Tooltip("The value who decrease conveyor time to move when a pot is repair")]
+    [SerializeField] float m_decreaseConveyorTimeToMove = 0.25f;
+    [SerializeField] float m_minConveyorTimeToMoveValue = 2.5f;
+
+    float m_actualTimeToMovePot;
+    public float ActualTimeToMovePot { get => m_actualTimeToMovePot; }
+
+    float m_actualSpeed;
+    public float ActualSpeed { get => m_actualSpeed; }
+
+    Pot m_actualRepairPot;
     PlayerController m_player;
 
+    List<Pot> m_potsOnConveyor = new List<Pot>();
 
-    void Start()
+    void Awake()
     {
-        On_SpawnPot();
+        m_actualTimeToMovePot = m_startTimeToMovePot;
+        SetConveyorSpeed();
 
-        Speed = Vector3.Distance(m_startPos.position, m_endPos.position) / m_timeToMovePot;
+        // On_SpawnPot();
+
+        for (int i = 0, l = m_rotators.Length; i < l; ++i)
+        {
+            m_rotators[i].Conveyor = this;
+        }
     }
 
     void Update()
@@ -56,9 +73,39 @@ public class ConveyorController : MonoBehaviour
     void AddPot()
     {
         int potToSpawn = Random.Range(0, m_objectToSpawn.Length);
-        m_actualRepairpot = Instantiate(m_objectToSpawn[potToSpawn], m_startPos.position, m_startPos.rotation, m_spawnRoot).GetComponent<Pot>();
-        m_actualRepairpot.StartToMovePot(this);
+        m_actualRepairPot = Instantiate(m_objectToSpawn[potToSpawn], m_startPos.position, m_startPos.rotation, m_spawnRoot).GetComponent<Pot>();
+        m_potsOnConveyor.Add(m_actualRepairPot);
+        m_actualRepairPot.StartToMovePot(this);
         m_player.On_StartToFollowPot(true);
+    }
+
+    void SetConveyorSpeed()
+    {
+        m_actualSpeed = Vector3.Distance(m_startPos.position, m_endPos.position) / m_actualTimeToMovePot;
+    }
+    void On_IncreaseConveyorSpeed()
+    {
+        m_actualTimeToMovePot -= m_decreaseConveyorTimeToMove;
+        if (m_actualTimeToMovePot < m_minConveyorTimeToMoveValue)
+            m_actualTimeToMovePot = m_minConveyorTimeToMoveValue;
+        SetConveyorSpeed();
+    }
+    void On_ResetConveyorSpeed()
+    {
+        m_actualTimeToMovePot = m_startTimeToMovePot;
+        SetConveyorSpeed();
+        SetPotsSpeed();
+    }
+
+    void SetPotsSpeed()
+    {
+        if (m_potsOnConveyor.Count == 0)
+            return;
+
+        for (int i = 0, l = m_potsOnConveyor.Count; i < l; ++i)
+        {
+            m_potsOnConveyor[i].GetConveyorValues();
+        }
     }
 
     public void SetPlayerToConveyor(PlayerController player)
@@ -68,28 +115,38 @@ public class ConveyorController : MonoBehaviour
     }
     public Pot GetRepairPot()
     {
-        return m_actualRepairpot;
+        return m_actualRepairPot;
     }
     public void On_PotArrivedAtTheEndOfConveyor(Pot arrivedPot)
     {
-        if(arrivedPot == m_actualRepairpot)
+        if(arrivedPot == m_actualRepairPot)
         {
             m_player.On_StartToFollowPot(false);
             m_player.MoveToStartPos();
+            On_ResetConveyorSpeed();
         }
     }
 
     public void On_PotIsRepair()
     {
-        m_actualRepairpot.On_PotIsRepair();
+        m_actualRepairPot.On_PotIsRepair();
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
+        On_IncreaseConveyorSpeed();
+
+        SetPotsSpeed();
     }
     public void On_PotIsBreak()
     {
-        m_actualRepairpot.On_PotIsBreak();
+        m_actualRepairPot.On_PotIsBreak();
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
+        On_ResetConveyorSpeed();
+    }
+
+    public void On_PotIsDestroy(Pot pot)
+    {
+        m_potsOnConveyor.Remove(pot);
     }
 
     public void On_SpawnPot()

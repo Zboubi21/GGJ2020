@@ -14,6 +14,21 @@ public class Pot : MonoBehaviour
     [SerializeField] float m_fallSpeed = 3;
     [SerializeField] float m_waitTimeToDestroyPot = 0.25f;
 
+    [SerializeField] PotFX m_fx;
+    [System.Serializable] class PotFX
+    {
+        [Header("Repair FX")]
+        public GameObject m_repairFXPrefab;
+        public Transform m_repairFXSpawn;
+
+        [Header("Break FX")]
+        public GameObject m_breakFXPrefab;
+        public Transform m_breakFXSpawn;
+
+        [Header("Delay")]
+        public float m_delayToChangePotMesh = 0.125f;
+    }
+
     enum MeshType
     {
         Neutral,
@@ -33,18 +48,7 @@ public class Pot : MonoBehaviour
 
     void Start()
     {
-        SetVisibleMesh(MeshType.Neutral);
-    }
-
-    void GetConveyorValues()
-    {
-        m_fromPos = m_conveyor.m_startPos.position;
-        m_toPos = m_conveyor.m_endPos.position;
-        m_timeToMove = m_conveyor.m_timeToMovePot;
-        m_moveSpeed = m_conveyor.Speed;
-
-        m_endAnimZPos = m_conveyor.m_endAnimZPos.position;
-        m_endAnimYPos = m_conveyor.m_endAnimYPos.position;
+        StartCoroutine(SetVisibleMesh(MeshType.Neutral));
     }
 
     IEnumerator MovePotOnConveyor()
@@ -54,11 +58,14 @@ public class Pot : MonoBehaviour
         float speed = new float();
         Vector3 actualValue = m_fromPos;
 
-        speed = distance / m_timeToMove;
+        // speed = distance / m_timeToMove;
+        speed = m_moveSpeed;
 
         while (actualValue != m_toPos)
         {
-            fracJourney += (Time.deltaTime) * speed / distance;
+            // fracJourney += (Time.deltaTime) * speed / distance;
+            fracJourney += (Time.deltaTime) * m_moveSpeed / distance;
+
             actualValue = Vector3.Lerp(m_fromPos, m_toPos, fracJourney);
             transform.position = actualValue;
             yield return null;
@@ -76,7 +83,9 @@ public class Pot : MonoBehaviour
 
         while (actualValue != m_endAnimZPos)
         {
-            fracJourney += (Time.deltaTime) * speed / distance;
+            // fracJourney += (Time.deltaTime) * speed / distance;
+            fracJourney += (Time.deltaTime) * m_moveSpeed / distance;
+
             actualValue = Vector3.Lerp(fromPos, m_endAnimZPos, fracJourney);
             transform.position = actualValue;
             yield return null;
@@ -103,8 +112,9 @@ public class Pot : MonoBehaviour
         DestroyPot();
     }
 
-    void SetVisibleMesh(MeshType mesh)
+    IEnumerator SetVisibleMesh(MeshType mesh, float waitTime = 0)
     {
+        yield return new WaitForSeconds(waitTime);
         switch (mesh)
         {
             case MeshType.Neutral:
@@ -125,6 +135,17 @@ public class Pot : MonoBehaviour
         }
     }
 
+    public void GetConveyorValues()
+    {
+        m_fromPos = m_conveyor.m_startPos.position;
+        m_toPos = m_conveyor.m_endPos.position;
+        m_timeToMove = m_conveyor.ActualTimeToMovePot;
+        m_moveSpeed = m_conveyor.ActualSpeed;
+
+        m_endAnimZPos = m_conveyor.m_endAnimZPos.position;
+        m_endAnimYPos = m_conveyor.m_endAnimYPos.position;
+    }
+
     public void StartToMovePot(ConveyorController conveyor)
     {
         m_conveyor = conveyor;
@@ -134,15 +155,18 @@ public class Pot : MonoBehaviour
 
     public void On_PotIsRepair()
     {
-        SetVisibleMesh(MeshType.Repair);
+        Level.AddFX(m_fx.m_repairFXPrefab, m_fx.m_repairFXSpawn.position, m_fx.m_repairFXSpawn.rotation, m_fx.m_repairFXSpawn);
+        StartCoroutine(SetVisibleMesh(MeshType.Repair, m_fx.m_delayToChangePotMesh));
     }
     public void On_PotIsBreak()
     {
-        SetVisibleMesh(MeshType.Break);
+        Level.AddFX(m_fx.m_breakFXPrefab, m_fx.m_breakFXSpawn.position, m_fx.m_breakFXSpawn.rotation, m_fx.m_breakFXSpawn);
+        StartCoroutine(SetVisibleMesh(MeshType.Break, m_fx.m_delayToChangePotMesh));
     }
 
     public void DestroyPot()
     {
+        m_conveyor.On_PotIsDestroy(this);
         Destroy(gameObject);
     }
     

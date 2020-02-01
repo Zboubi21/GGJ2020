@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7019180348051461708}
   - component: {fileID: 7078554253047791306}
   m_Layer: 0
-  m_Name: Pot_Repaired
+  m_Name: PotRepaired_FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
