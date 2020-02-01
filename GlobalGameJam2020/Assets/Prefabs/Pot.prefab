@@ -109,7 +109,7 @@ MonoBehaviour:
   m_repairMesh: {fileID: 3052466308925199643}
   m_breakMesh: {fileID: 8275369065061242314}
   m_waitTimeToFall: 0.1
-  m_fallSpeed: 3
+  m_fallSpeed: 1.5
   m_waitTimeToDestroyPot: 0.25
   m_fx:
     m_repairFXPrefab: {fileID: 7182134022760430614, guid: 50c273760de490e4a84ad9a4ecee7a2d,

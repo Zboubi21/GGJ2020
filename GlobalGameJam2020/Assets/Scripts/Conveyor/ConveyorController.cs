@@ -54,8 +54,6 @@ public class ConveyorController : MonoBehaviour
         m_actualTimeToMovePot = m_startTimeToMovePot;
         SetConveyorSpeed();
 
-        // On_SpawnPot();
-
         for (int i = 0, l = m_rotators.Length; i < l; ++i)
         {
             m_rotators[i].Conveyor = this;
@@ -147,6 +145,8 @@ public class ConveyorController : MonoBehaviour
     {
         if(arrivedPot == m_actualRepairPot)
         {
+            m_actualRepairPot = null; // En test
+
             m_player.On_StartToFollowPot(false);
             m_player.MoveToStartPos();
             On_ResetConveyorSpeed();
@@ -160,6 +160,7 @@ public class ConveyorController : MonoBehaviour
     public void On_PotIsRepair()
     {
         m_actualRepairPot.On_PotIsRepair();
+        m_actualRepairPot = null; // En test
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
         On_IncreaseConveyorSpeed();
@@ -172,6 +173,7 @@ public class ConveyorController : MonoBehaviour
     public void On_PotIsBreak()
     {
         m_actualRepairPot.On_PotIsBreak();
+        m_actualRepairPot = null; // En test
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
         On_ResetConveyorSpeed();
@@ -189,6 +191,12 @@ public class ConveyorController : MonoBehaviour
     public void On_SpawnPot()
     {
         StartCoroutine(WaitTimeToSpawnPot());
+    }
+    public void On_ConveyorStop()
+    {
+        m_actualTimeToMovePot = 0;
+        SetConveyorSpeed();
+        SetPotsSpeed();
     }
 
 }

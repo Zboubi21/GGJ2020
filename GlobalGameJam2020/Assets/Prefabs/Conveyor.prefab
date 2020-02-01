@@ -1809,9 +1809,9 @@ MonoBehaviour:
   - {fileID: 3311309764108316207}
   m_endAnimZPos: {fileID: 2022622479912259784}
   m_endAnimYPos: {fileID: 3626275017734881016}
-  m_waitTimeToSpawnPot: 0.5
-  m_startTimeToMovePot: 5
-  m_decreaseConveyorTimeToMove: 0.25
+  m_waitTimeToSpawnPot: 0.25
+  m_startTimeToMovePot: 7.5
+  m_decreaseConveyorTimeToMove: 1
   m_minConveyorTimeToMoveValue: 2.5
   m_showGizmos: 1
   m_gizmosSize: 0.5

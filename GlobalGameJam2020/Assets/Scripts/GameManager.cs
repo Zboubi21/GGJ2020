@@ -169,6 +169,16 @@ public class GameManager : MonoBehaviour
 		m_camera.SwitchCameraToEndGame();
 
 		// Arrêter de faire spawn les pots et bouger le conveyor !
+		if(m_conveyors != null)
+		{
+			for (int i = 0, l = m_conveyors.Length; i < l; ++i)
+			{
+				if(m_conveyors[i] != null)
+				{
+					m_conveyors[i].On_ConveyorStop();
+				}
+			}
+		}
 	}
 
 	public void On_PotIsRepaired(int playerId)

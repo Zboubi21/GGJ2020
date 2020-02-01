@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] ConveyorController m_playerConvoyer;
     [SerializeField] float m_moveSpeed = 5;
+    [SerializeField] Animator m_animator;
 
     bool m_followPot = false;
     Vector3 m_startPlayerPos;
@@ -37,6 +38,19 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator MovePlayer(Vector3 toPos)
     {
+        m_animator.SetBool("Run", true);
+        if(m_playerId == 1)
+        {
+            m_animator.SetBool("GoToRight", false);
+            m_animator.SetBool("GoToLeft", true);
+        }
+        else
+        {
+            m_animator.SetBool("GoToRight", true);
+            m_animator.SetBool("GoToLeft", false);
+        }
+            
+
         Vector3 fromPos = transform.position;
         float fracJourney = 0;
         float distance = Vector3.Distance(fromPos, toPos);
@@ -53,6 +67,9 @@ public class PlayerController : MonoBehaviour
         }
         On_StartToFollowPot(false);
         m_playerConvoyer.On_SpawnPot();
+
+        m_animator.SetBool("Run", false);
+        
     }
 
     public void On_StartToFollowPot(bool followPot)
