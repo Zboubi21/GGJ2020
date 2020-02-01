@@ -29,6 +29,10 @@ public class Pot : MonoBehaviour
         public float m_delayToChangePotMesh = 0.125f;
     }
 
+    [Header("SFX")]
+    [SerializeField] GameObject[] m_repairedPotSfx;
+    [SerializeField] GameObject[] m_brokenPotSfx;
+
     enum MeshType
     {
         Neutral,
@@ -156,11 +160,13 @@ public class Pot : MonoBehaviour
     public void On_PotIsRepair()
     {
         Level.AddFX(m_fx.m_repairFXPrefab, m_fx.m_repairFXSpawn.position, m_fx.m_repairFXSpawn.rotation, m_fx.m_repairFXSpawn);
+        Level.AddFX(m_repairedPotSfx[Random.Range(0, m_repairedPotSfx.Length)], Vector3.zero, Quaternion.identity);
         StartCoroutine(SetVisibleMesh(MeshType.Repair, m_fx.m_delayToChangePotMesh));
     }
     public void On_PotIsBreak()
     {
         Level.AddFX(m_fx.m_breakFXPrefab, m_fx.m_breakFXSpawn.position, m_fx.m_breakFXSpawn.rotation, m_fx.m_breakFXSpawn);
+        Level.AddFX(m_brokenPotSfx[Random.Range(0, m_brokenPotSfx.Length)], Vector3.zero, Quaternion.identity);
         StartCoroutine(SetVisibleMesh(MeshType.Break, m_fx.m_delayToChangePotMesh));
     }
 
