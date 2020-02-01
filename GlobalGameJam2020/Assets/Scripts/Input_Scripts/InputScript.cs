@@ -24,6 +24,12 @@ public class InputScript : MonoBehaviour
     public float maxEulerRotation = 10f;
     float minEulerRotation;
     [Space]
+    [Header("Animation Succes Or Failure FeedBack")]
+    public AnimationCurve animationSuccesOrFailure;
+    public float timeOfSuccesOrFailureAnim = 1f;
+    public float childMaxScale = 1f;
+    float childMinScale;
+    [Space]
     string _currentInput;
     List<string> allWrongInputs;
     int _playerID;
@@ -184,6 +190,7 @@ public class InputScript : MonoBehaviour
         m_childImage.gameObject.SetActive(true);
 
         StartCoroutine(InputFeedBack(animationSelection, timeOfAnim));
+        StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
 
         if (CheckPressedInput(pressedInput))
         {
@@ -231,6 +238,20 @@ public class InputScript : MonoBehaviour
             Vector3 rot = transform.rotation.eulerAngles;
             rot.z = Mathf.Lerp(minEulerRotation, maxEulerRotation, height);
             transform.localEulerAngles = rot;
+        }
+        _currentTimeOfAnimation = 0;
+    }
+
+    IEnumerator FeedBackFailOrSucces(AnimationCurve curve, float timeOfAnimation, Transform transform)
+    {
+        float _currentTimeOfAnimation = 0;
+        while (_currentTimeOfAnimation / timeOfAnimation <= 1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            _currentTimeOfAnimation += Time.deltaTime;
+
+            float height = curve.Evaluate(_currentTimeOfAnimation / timeOfAnimation);
+            transform.localScale = new Vector3(Mathf.Lerp(childMinScale, childMaxScale, height), Mathf.Lerp(childMinScale, childMaxScale, height), Mathf.Lerp(childMinScale, childMaxScale, height));
         }
         _currentTimeOfAnimation = 0;
     }
