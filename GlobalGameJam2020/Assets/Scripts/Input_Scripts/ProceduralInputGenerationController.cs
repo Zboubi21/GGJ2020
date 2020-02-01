@@ -40,12 +40,10 @@ public class ProceduralInputGenerationController : MonoBehaviour
         {
             OnSpriteGeneration();
             OnResetTimer();
-            ActivateTimer = true;
         }
-        else if(ActivateTimer)
-        {
-            OnPassingTime(timeForPatternWithoutCombo);
-        }
+
+        OnPassingTime(timeForPatternWithoutCombo);
+
     }
 
     public void OnResetTimer()
@@ -57,15 +55,22 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     public void OnPassingTime(float time)
     {
-        if(_currentPassingTime > 0)
+        if (ActivateTimer)
         {
-            _currentPassingTime -= Time.deltaTime;
-            timeBar.fillAmount = Mathf.InverseLerp(0f, time, _currentPassingTime);
+            if(_currentPassingTime > 0)
+            {
+                _currentPassingTime -= Time.deltaTime;
+                timeBar.fillAmount = Mathf.InverseLerp(0f, time, _currentPassingTime);
+            }
+            else
+            {
+                OnResetTimer();
+                OnSpriteGeneration();
+            }
         }
         else
         {
-            OnResetTimer();
-            OnSpriteGeneration();
+            timeBar.fillAmount = 0;
         }
     }
 

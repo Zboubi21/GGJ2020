@@ -6,8 +6,24 @@ using UnityEngine.UI;
 public class InputScript : MonoBehaviour
 {
     public Image m_childImage;
+    [Space]
+    public Sprite[] m_feedBack;
 
     public string input;
+
+    [Space]
+    [Header("Animation Input FeedBack")]
+    public AnimationCurve animationSelection;
+    public float timeOfAnim = 1f;
+    public float maxScale;
+    float minScale;
+    [Space]
+    [Header("Animation Wrong Input FeedBack")]
+    public AnimationCurve animationWrongInput;
+    public float timeOfWrongAnim = 1f;
+    public float maxEulerRotation = 10f;
+    float minEulerRotation;
+    [Space]
     string _currentInput;
     List<string> allWrongInputs;
     int _playerID;
@@ -27,6 +43,8 @@ public class InputScript : MonoBehaviour
 
         m_childImage.gameObject.SetActive(false);
         ResetBoolArray();
+        minScale = transform.localScale.x;
+        minEulerRotation = transform.localEulerAngles.z;
         //allWrongInputs = new List<string>{ "a", "b", "x", "y", "up", "right", "down", "left" };
 
         //for (int i = 0, l = allWrongInputs.Count; i < l; ++i)
@@ -165,13 +183,16 @@ public class InputScript : MonoBehaviour
     {
         m_childImage.gameObject.SetActive(true);
 
+        StartCoroutine(InputFeedBack(animationSelection, timeOfAnim));
+
         if (CheckPressedInput(pressedInput))
         {
-            m_childImage.color = Color.green;
+            m_childImage.sprite = m_feedBack[0];
         }
         else
         {
-            m_childImage.color = Color.red;
+            m_childImage.sprite = m_feedBack[1];
+            StartCoroutine(InputWrongFeedBack(animationWrongInput, timeOfWrongAnim));
             StartCoroutine(EchecAnimation());
         }
     }
@@ -180,8 +201,38 @@ public class InputScript : MonoBehaviour
     {
         ResetBoolArray();
         IsCheckable = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(GameManager.s_instance.punishTimeForFaillingPatern);
         InputFailure();
+    }
+
+    IEnumerator InputFeedBack(AnimationCurve curve, float timeOfAnimation)
+    {
+        float _currentTimeOfAnimation = 0;
+        while (_currentTimeOfAnimation / timeOfAnimation <= 1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            _currentTimeOfAnimation += Time.deltaTime;
+
+            float height = curve.Evaluate(_currentTimeOfAnimation / timeOfAnimation);
+            transform.localScale = new Vector3(Mathf.Lerp(minScale, maxScale, height), Mathf.Lerp(minScale, maxScale, height), Mathf.Lerp(minScale, maxScale, height));
+        }
+        _currentTimeOfAnimation = 0;
+    }
+
+    IEnumerator InputWrongFeedBack(AnimationCurve curve, float timeOfAnimation)
+    {
+        float _currentTimeOfAnimation = 0;
+        while (_currentTimeOfAnimation / timeOfAnimation <= 1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            _currentTimeOfAnimation += Time.deltaTime;
+
+            float height = curve.Evaluate(_currentTimeOfAnimation / timeOfAnimation);
+            Vector3 rot = transform.rotation.eulerAngles;
+            rot.z = Mathf.Lerp(minEulerRotation, maxEulerRotation, height);
+            transform.localEulerAngles = rot;
+        }
+        _currentTimeOfAnimation = 0;
     }
 
 

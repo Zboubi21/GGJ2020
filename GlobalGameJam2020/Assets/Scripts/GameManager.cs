@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
 	[Space]
 	[SerializeField] int m_potScoreValue = 1;
 
+    [Header("Patern Var")]
+    public float punishTimeForFaillingPatern = 0.5f;
+
 	float m_actualTimer;
 	bool m_partyIsFinished = false;
 
