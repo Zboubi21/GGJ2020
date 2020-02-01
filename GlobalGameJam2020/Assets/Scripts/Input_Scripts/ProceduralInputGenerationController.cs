@@ -21,6 +21,8 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public float timeForPatternWithoutCombo;
     [Space]
     public TextMeshProUGUI _tmp;
+    [Space]
+    public CanvasGroup canvasGroup;
     float _currentPassingTime;
 
     List<GameObject> instantiatedInput = new List<GameObject>();
@@ -132,6 +134,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
         {
             comboCount--;
             _tmp.text = string.Format("X {0}", comboCount);
+            StartCoroutine(OnHideCanvasGroupe());
         }
     }
 
@@ -139,5 +142,20 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         comboCount++;
         _tmp.text = string.Format("X {0}", comboCount);
+        StartCoroutine(OnHideCanvasGroupe());
+    }
+
+
+    IEnumerator OnHideCanvasGroupe()
+    {
+        float _currentTimeOfAnimation = 0;
+        while (canvasGroup.alpha > 0)
+        {
+            yield return new WaitForSeconds(0.01f);
+            _currentTimeOfAnimation += Time.deltaTime;
+
+            canvasGroup.alpha += 0.1f;
+        }
+        _currentTimeOfAnimation = 0;
     }
 }

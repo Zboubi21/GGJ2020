@@ -295,6 +295,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   timeOfSuccesOrFailureAnim: 0.2
   childMaxScale: 2.5
+  source: {fileID: 0}
+  inputSound: []
 --- !u!1 &2616740941479297487
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
