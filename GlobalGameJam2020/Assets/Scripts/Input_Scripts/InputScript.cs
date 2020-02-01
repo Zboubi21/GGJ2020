@@ -317,6 +317,7 @@ public class InputScript : MonoBehaviour
     {
         controller.OnSpriteGeneration();
         controller.OnResetTimer();
+        controller.OnLoseCombo();
         m_convoyer.On_PotIsBreak();
     }
     #endregion

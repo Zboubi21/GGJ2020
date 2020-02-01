@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class ProceduralInputGenerationController : MonoBehaviour
@@ -18,6 +19,8 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public int nbrOfInputToSpawn;
     [Space]
     public float timeForPatternWithoutCombo;
+    [Space]
+    public TextMeshProUGUI _tmp;
     float _currentPassingTime;
 
     List<GameObject> instantiatedInput = new List<GameObject>();
@@ -29,6 +32,8 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     int m_playerID;
 
+    int comboCount;
+
     private void Start()
     {
         m_playerID = m_playerController.m_playerId;
@@ -37,7 +42,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     void Update()
     {
 
-        transform.LookAt(Camera.main.transform);
+        //transform.LookAt(Camera.main.transform);
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -116,7 +121,23 @@ public class ProceduralInputGenerationController : MonoBehaviour
             OnSpriteGeneration();
             OnResetTimer();
             m_conveyorController.On_PotIsRepair();
+            OnWinCombo();
         }
 
+    }
+
+    public void OnLoseCombo()
+    {
+        if(comboCount - 1 > 1)
+        {
+            comboCount--;
+            _tmp.text = string.Format("X {0}", comboCount);
+        }
+    }
+
+    void OnWinCombo()
+    {
+        comboCount++;
+        _tmp.text = string.Format("X {0}", comboCount);
     }
 }
