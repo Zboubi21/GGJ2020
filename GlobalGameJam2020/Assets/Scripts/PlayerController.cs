@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ConveyorController m_playerConvoyer;
     [SerializeField] float m_moveSpeed = 5;
 
+    [Header("Test")]
+    [SerializeField] int m_id;
+
     bool m_followPot = false;
     Vector3 m_startPlayerPos;
     float m_targetZPos;
@@ -21,6 +24,16 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         FollowPot();
+    }
+
+    void Update()
+    {
+        // if(Input.GetButtonDown("A_P" + m_id))
+        // {
+            // Debug.Log("A is press by player " + m_id);
+        // }
+        // Debug.Log("DPAD_v_P" + m_id + " " + Input.GetAxis("DPAD_v_P" + m_id));
+        // Debug.Log("DPAD_h_P" + m_id + " " + Input.GetAxis("DPAD_h_P" + m_id));
     }
 
     void FollowPot()
