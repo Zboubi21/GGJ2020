@@ -43,6 +43,8 @@ public class ConveyorController : MonoBehaviour
     public float ActualSpeed { get => m_actualSpeed; }
 
     Pot m_actualRepairPot;
+    public Pot ActualRepairPot { get => m_actualRepairPot;}
+
     PlayerController m_player;
     List<Pot> m_potsOnConveyor = new List<Pot>();
     GameManager m_gameManager;

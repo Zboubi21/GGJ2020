@@ -35,6 +35,7 @@ public class InputScript : MonoBehaviour
     public float childMaxScale = 1f;
     float childMinScale;
     
+    
     string _currentInput;
     List<string> allWrongInputs;
     int _playerID;
@@ -206,6 +207,8 @@ public class InputScript : MonoBehaviour
         StartCoroutine(InputFadeWhiteFeedBack(animationFadeWhite, timeOfFadeWhiteAnim));
         StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
 
+
+        Level.AddFX(Controller.reparingFX, Convoyer.ActualRepairPot.transform.position, Quaternion.identity);
         
 
         if (CheckPressedInput(pressedInput))

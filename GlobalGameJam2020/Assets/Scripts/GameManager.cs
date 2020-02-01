@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] float m_waitTimeToStartGame = 4;
 	[SerializeField] float m_gameDuration = 90;
+	[SerializeField] float m_criticalTime= 70;
 
-	[Header("Countdown")]
+    [Header("Countdown")]
 	[SerializeField] Animator m_animator;
 
 	[Header("Conveyor")]
@@ -33,7 +34,10 @@ public class GameManager : MonoBehaviour
 	[Header("Camera")]
 	[SerializeField] CameraController m_camera;
 
-	bool m_partyIsStarted = false;
+    [Header("Mise en scene")]
+    [SerializeField] Animator m_stagingAnim;
+
+    bool m_partyIsStarted = false;
 
 	float m_actualTimer;
 	bool m_partyIsFinished = false;
@@ -100,7 +104,14 @@ public class GameManager : MonoBehaviour
 		}
 
 		if(m_timerTextValue != null)
+        {
 			m_timerTextValue.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+            if(m_actualTimer < m_criticalTime)
+            {
+                m_timerTextValue.color = Color.red;
+                m_showTimerAnim.SetTrigger("Critical");
+            }
+        }
 	}
 
 	void CalculateScore(int playerId)

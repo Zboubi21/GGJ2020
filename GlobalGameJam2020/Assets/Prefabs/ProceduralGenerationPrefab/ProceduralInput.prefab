@@ -276,7 +276,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3408251751897035148}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -698,6 +698,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: aa034f3c1dbeabb4a8558635895dcbc9, type: 3}
   - {fileID: 8300000, guid: 7d34b456e671e1046a96478157af0eb8, type: 3}
   - {fileID: 8300000, guid: d1eb1baf40df0774a84ec492154a965e, type: 3}
+  reparingFX: {fileID: 162494374914332541, guid: 9409db88b2f337344b59bcabac3a6e17,
+    type: 3}
 --- !u!1 &7252846098444674880
 GameObject:
   m_ObjectHideFlags: 0

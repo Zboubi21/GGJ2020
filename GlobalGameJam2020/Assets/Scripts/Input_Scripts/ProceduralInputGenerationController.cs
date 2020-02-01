@@ -27,7 +27,8 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public AudioSource source;
     public AudioClip[] inputSound;
     float _currentPassingTime;
-
+    [Header("Repairing FX")]
+    public GameObject reparingFX;
     List<GameObject> instantiatedInput = new List<GameObject>();
     public List<GameObject> InstantiatedInput { get => instantiatedInput; }
 
