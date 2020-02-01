@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1848630950858400451}
   - component: {fileID: 1848630950858400450}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 1_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 1848630950858400448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1883986674561934826}
   m_RootOrder: 3
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 1848630951261168254}
   - component: {fileID: 1848630951261168253}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 1848630951395755906}
   - component: {fileID: 1848630951395755905}
   m_Layer: 0
-  m_Name: Image
+  m_Name: 3_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +171,7 @@ RectTransform:
   m_GameObject: {fileID: 1848630951395755935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.6557, y: 5, z: 5}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1883986674561934826}
   m_RootOrder: 1
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 1848630952226928401}
   - component: {fileID: 1848630952226928400}
   m_Layer: 0
-  m_Name: 2
+  m_Name: 2_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ RectTransform:
   m_GameObject: {fileID: 1848630952226928494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1883986674561934826}
   m_RootOrder: 2
@@ -300,7 +300,7 @@ GameObject:
   - component: {fileID: 1848630952243671874}
   - component: {fileID: 1848630952243671873}
   m_Layer: 0
-  m_Name: Go
+  m_Name: Go_Img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,7 +315,7 @@ RectTransform:
   m_GameObject: {fileID: 1848630952243671903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1883986674561934826}
   m_RootOrder: 4

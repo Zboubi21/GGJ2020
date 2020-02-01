@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
     
 	public static GameManager s_instance;
 
-	// [SerializeField] float m_waitTimeToStartGame = 3;
+	[SerializeField] float m_waitTimeToStartGame = 4;
 	[SerializeField] float m_gameDuration = 90;
+
+	[Header("Countdown")]
+	[SerializeField] Animator m_animator;
 
 	[Header("Conveyor")]
 	[SerializeField] ConveyorController[] m_conveyors;
@@ -50,7 +53,8 @@ public class GameManager : MonoBehaviour
 		UpdateScoreText(1);
 		UpdateScoreText(2);
 
-		On_PartyIsStarted();
+		m_animator.SetTrigger("Start");
+		StartCoroutine(WaitTimeToStartGame());
 	}
 
 	void Update()
@@ -118,6 +122,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	IEnumerator WaitTimeToStartGame()
+	{
+		yield return new WaitForSeconds(m_waitTimeToStartGame);
+		On_PartyIsStarted();
+	}
 	void On_PartyIsStarted()
 	{
 		if(m_conveyors != null)
@@ -148,19 +157,19 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotIsBroken(int playerId)
 	{
-		if(playerId == 1)
-			m_actualComboNbrP1 = 1;
+		if(playerId == 1 && m_actualComboNbrP1 >= 1)
+			m_actualComboNbrP1 --;
 
-		if(playerId == 2)
-			m_actualComboNbrP2 = 1;
+		if(playerId == 2 && m_actualComboNbrP2 >= 1)
+			m_actualComboNbrP2 --;
 	}
 	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
 	{
-		if(playerId == 1)
-			m_actualComboNbrP1 = 1;
+		if(playerId == 1 && m_actualComboNbrP1 >= 1)
+			m_actualComboNbrP1 --;
 
-		if(playerId == 2)
-			m_actualComboNbrP2 = 1;
+		if(playerId == 2 && m_actualComboNbrP2 >= 1)
+			m_actualComboNbrP2 --;
 	}
 
 }
