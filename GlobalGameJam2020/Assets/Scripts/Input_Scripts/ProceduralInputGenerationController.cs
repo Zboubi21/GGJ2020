@@ -33,7 +33,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            OnSpriteGeneration(nbrOfInputToSpawn, false);
+            OnSpriteGeneration();
             OnResetTimer();
             go = true;
         }
@@ -60,18 +60,16 @@ public class ProceduralInputGenerationController : MonoBehaviour
         else
         {
             OnResetTimer();
-            OnSpriteGeneration(nbrOfInputToSpawn, false);
+            OnSpriteGeneration();
         }
     }
 
-    public void OnSpriteGeneration(int nbrOfSpawn, bool hastoAddInputs)
+    public void OnSpriteGeneration()
     {
-        if (!hastoAddInputs)
-        {
-            DestroyInputsOnLists(InstantiatedInput);
-        }
 
-        for (int i = 0; i < nbrOfSpawn; ++i)
+        DestroyInputsOnLists(InstantiatedInput);
+
+        for (int i = 0; i < nbrOfInputToSpawn; ++i)
         {
             int random = Random.Range(0, allInputs.Length);
             GameObject go = Instantiate(allInputs[random], inputParent);
@@ -102,7 +100,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
         }
         else if(inputCount == InstantiatedInput.Count)
         {
-            OnSpriteGeneration(nbrOfInputToSpawn, false);
+            OnSpriteGeneration();
             OnResetTimer();
         }
 
