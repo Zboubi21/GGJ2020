@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     
+    [Header("Player ID")]
+    [Range(1, 2)] public int m_playerId;
+    [Space]
     [SerializeField] ConveyorController m_playerConvoyer;
     [SerializeField] float m_moveSpeed = 5;
-
-    [Header("Test")]
-    [Range(1, 2)] public int m_playerId;
 
     bool m_followPot = false;
     Vector3 m_startPlayerPos;
