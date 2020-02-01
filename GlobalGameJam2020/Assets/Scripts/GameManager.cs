@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] ConveyorController[] m_conveyors;
 
 	[Header("Timer")]
+	[SerializeField] Animator m_showTimerAnim;
 	[SerializeField] TextMeshProUGUI m_timerTextValue;
 
 	[Header("Score")]
@@ -28,6 +29,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Patern Var")]
     public float punishTimeForFaillingPatern = 0.5f;
+
+	[Header("Camera")]
+	[SerializeField] CameraController m_camera;
+
+	bool m_partyIsStarted = false;
 
 	float m_actualTimer;
 	bool m_partyIsFinished = false;
@@ -55,10 +61,15 @@ public class GameManager : MonoBehaviour
 
 		m_animator.SetTrigger("Start");
 		StartCoroutine(WaitTimeToStartGame());
+
+		UpdateTimerText();
 	}
 
 	void Update()
 	{
+		if(!m_partyIsStarted)
+			return;
+
 		if(m_actualTimer - Time.deltaTime > 0)
 		{
 			m_actualTimer -= Time.deltaTime;
@@ -129,6 +140,8 @@ public class GameManager : MonoBehaviour
 	}
 	void On_PartyIsStarted()
 	{
+		m_showTimerAnim.SetTrigger("Start");
+		m_partyIsStarted = true;
 		if(m_conveyors != null)
 		{
 			for (int i = 0, l = m_conveyors.Length; i < l; ++i)
@@ -142,7 +155,9 @@ public class GameManager : MonoBehaviour
 	}
 	void On_PartyIsFinished()
 	{
+		m_camera.SwitchCameraToEndGame();
 
+		// Arrêter de faire spawn les pots et bouger le conveyor !
 	}
 
 	public void On_PotIsRepaired(int playerId)

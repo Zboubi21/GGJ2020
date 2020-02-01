@@ -65,18 +65,6 @@ public class ConveyorController : MonoBehaviour
         m_gameManager = GameManager.s_instance;
     }
 
-    void Update()
-    {
-        // if(Input.GetKeyDown(KeyCode.W))
-        // {
-        //     On_PotIsRepair();
-        // }
-        // if(Input.GetKeyDown(KeyCode.F))
-        // {
-        //     On_PotIsBreak();
-        // }
-    }
-
     void OnDrawGizmos()
     {
         if (!m_showGizmos)
