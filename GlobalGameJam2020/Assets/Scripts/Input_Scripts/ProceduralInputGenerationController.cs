@@ -23,6 +23,9 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public TextMeshProUGUI _tmp;
     [Space]
     public CanvasGroup canvasGroup;
+    [Space]
+    public AudioSource source;
+    public AudioClip[] inputSound;
     float _currentPassingTime;
 
     List<GameObject> instantiatedInput = new List<GameObject>();
@@ -34,7 +37,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     int m_playerID;
 
-    int comboCount;
+    int comboCount = 1;
 
     private void Start()
     {
@@ -86,6 +89,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     public void OnSpriteGeneration()
     {
+        StartCoroutine(OnShowCanvasGroupe());
         DestroyInputsOnLists(InstantiatedInput);
 
         for (int i = 0; i < nbrOfInputToSpawn; ++i)
@@ -113,8 +117,13 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public void ActivateCheckableOnNextInput()
     {
         inputCount++;
-
-        if(inputCount < InstantiatedInput.Count)
+        if (source != null && inputSound[0] != null)
+        {
+            int random = Random.Range(0, inputSound.Length);
+            source.clip = inputSound[random];
+            source.Play();
+        }
+        if (inputCount < InstantiatedInput.Count)
         {
             InstantiatedInput[inputCount].GetComponent<InputScript>().IsCheckable = true;
         }
@@ -130,11 +139,18 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     public void OnLoseCombo()
     {
-        if(comboCount - 1 > 1)
+        if(comboCount - 1 >= 1)
         {
             comboCount--;
             _tmp.text = string.Format("X {0}", comboCount);
-            StartCoroutine(OnHideCanvasGroupe());
+        }
+        StartCoroutine(OnHideCanvasGroupe());
+
+        if (source != null && inputSound[0] != null)
+        {
+            int random = Random.Range(0, inputSound.Length);
+            source.clip = inputSound[random];
+            source.Play();
         }
     }
 
@@ -148,14 +164,20 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     IEnumerator OnHideCanvasGroupe()
     {
-        float _currentTimeOfAnimation = 0;
         while (canvasGroup.alpha > 0)
         {
+            Debug.Log("hop");
             yield return new WaitForSeconds(0.01f);
-            _currentTimeOfAnimation += Time.deltaTime;
+            canvasGroup.alpha -= 0.1f;
+        }
+    }
 
+    IEnumerator OnShowCanvasGroupe()
+    {
+        while (canvasGroup.alpha < 1)
+        {
+            yield return new WaitForSeconds(0.01f);
             canvasGroup.alpha += 0.1f;
         }
-        _currentTimeOfAnimation = 0;
     }
 }

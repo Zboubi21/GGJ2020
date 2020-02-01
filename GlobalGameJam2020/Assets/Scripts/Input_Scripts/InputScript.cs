@@ -34,9 +34,7 @@ public class InputScript : MonoBehaviour
     public float timeOfSuccesOrFailureAnim = 1f;
     public float childMaxScale = 1f;
     float childMinScale;
-    [Space]
-    public AudioSource source;
-    public AudioClip[] inputSound;
+    
     string _currentInput;
     List<string> allWrongInputs;
     int _playerID;
@@ -208,12 +206,7 @@ public class InputScript : MonoBehaviour
         StartCoroutine(InputFadeWhiteFeedBack(animationFadeWhite, timeOfFadeWhiteAnim));
         StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
 
-        if(source != null && inputSound[0] != null)
-        {
-            int random = Random.Range(0, inputSound.Length);
-            source.clip = inputSound[random];
-            source.Play();
-        }
+        
 
         if (CheckPressedInput(pressedInput))
         {
