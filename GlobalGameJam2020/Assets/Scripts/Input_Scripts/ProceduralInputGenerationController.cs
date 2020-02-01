@@ -36,6 +36,9 @@ public class ProceduralInputGenerationController : MonoBehaviour
     }
     void Update()
     {
+
+        transform.LookAt(Camera.main.transform);
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             OnSpriteGeneration();
