@@ -166,7 +166,6 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         while (canvasGroup.alpha > 0)
         {
-            Debug.Log("hop");
             yield return new WaitForSeconds(0.01f);
             canvasGroup.alpha -= 0.1f;
         }
