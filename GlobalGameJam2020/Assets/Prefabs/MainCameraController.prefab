@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4557873769673420355}
-  m_LocalRotation: {x: 0, y: 0.9360903, z: -0.35175994, w: 0}
+  m_LocalRotation: {x: -0.0000010430812, y: -0.9360907, z: 0.35175866, w: 0.000002775819}
   m_LocalPosition: {x: -7.75, y: 40.9, z: 38.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -150,7 +150,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_endGameCamera:
-    m_toPos: {x: -7.75, y: 28, z: 30}
+    m_toPos: {x: -7.86, y: 35.14, z: 37.2}
     m_timeToMove: 2
     m_moveCurve:
       serializedVersion: 2
