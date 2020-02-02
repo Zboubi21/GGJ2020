@@ -25,7 +25,7 @@ public class ConveyorController : MonoBehaviour
     public Transform m_endAnimYPos;
 
     [Space]
-    [SerializeField] float m_waitTimeToSpawnPot = 1;
+    public float m_waitTimeToSpawnPot = 0.25f;
     [Space]
     public float m_startTimeToMovePot = 5;
 
@@ -44,6 +44,7 @@ public class ConveyorController : MonoBehaviour
     float m_actualSpeed;
     public float ActualSpeed { get => m_actualSpeed; }
 
+    Pot m_spawnedPot;
     Pot m_actualRepairPot;
     public Pot ActualRepairPot { get => m_actualRepairPot;}
 
@@ -85,12 +86,22 @@ public class ConveyorController : MonoBehaviour
     IEnumerator WaitTimeToSpawnPot()
     {
         yield return new WaitForSeconds(m_waitTimeToSpawnPot);
-        AddPot();
+        // On_PotIsReadyToBeTaked();
+        SpawnPot();
     }
-    void AddPot()
+    void SpawnPot()
     {
         int potToSpawn = Random.Range(0, m_objectToSpawn.Length);
-        m_actualRepairPot = Instantiate(m_objectToSpawn[potToSpawn], m_startPos.position, m_startPos.rotation, m_spawnRoot).GetComponent<Pot>();
+        m_spawnedPot = Instantiate(m_objectToSpawn[potToSpawn], m_spawnPotPos.position, m_spawnPotPos.rotation, m_spawnRoot).GetComponent<Pot>();
+        m_spawnedPot.StartCoroutine(m_spawnedPot.MovePotToTakePos(this, m_startPos.position));
+    }
+    public void On_PotIsReadyToBeTaked()
+    {
+        // int potToSpawn = Random.Range(0, m_objectToSpawn.Length);
+        // m_actualRepairPot = Instantiate(m_objectToSpawn[potToSpawn], m_startPos.position, m_startPos.rotation, m_spawnRoot).GetComponent<Pot>();
+        
+        m_actualRepairPot = m_spawnedPot;
+
         m_potsOnConveyor.Add(m_actualRepairPot);
         m_actualRepairPot.StartToMovePot(this);
         m_player.On_StartToFollowPot(true);

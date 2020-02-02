@@ -55,6 +55,23 @@ public class Pot : MonoBehaviour
         StartCoroutine(SetVisibleMesh(MeshType.Neutral));
     }
 
+    public IEnumerator MovePotToTakePos(ConveyorController conveyor, Vector3 takePos)
+    {
+        Vector3 fromPos = transform.position;
+        float fracJourney = 0;
+        float distance = Vector3.Distance(fromPos, takePos);
+        float speed = distance / conveyor.m_waitTimeToSpawnPot;
+        Vector3 actualValue = fromPos;
+
+        while (actualValue != takePos)
+        {
+            fracJourney += (Time.deltaTime) * speed / distance;
+            actualValue = Vector3.Lerp(fromPos, takePos, fracJourney);
+            transform.position = actualValue;
+            yield return null;
+        }
+        conveyor.On_PotIsReadyToBeTaked();
+    }
     IEnumerator MovePotOnConveyor()
     {
         float fracJourney = 0;
@@ -69,7 +86,6 @@ public class Pot : MonoBehaviour
         {
             // fracJourney += (Time.deltaTime) * speed / distance;
             fracJourney += (Time.deltaTime) * m_moveSpeed / distance;
-
             actualValue = Vector3.Lerp(m_fromPos, m_toPos, fracJourney);
             transform.position = actualValue;
             yield return null;
@@ -89,7 +105,6 @@ public class Pot : MonoBehaviour
         {
             // fracJourney += (Time.deltaTime) * speed / distance;
             fracJourney += (Time.deltaTime) * m_moveSpeed / distance;
-
             actualValue = Vector3.Lerp(fromPos, m_endAnimZPos, fracJourney);
             transform.position = actualValue;
             yield return null;
