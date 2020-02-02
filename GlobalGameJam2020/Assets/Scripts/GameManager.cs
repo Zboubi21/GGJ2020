@@ -144,15 +144,17 @@ public class GameManager : MonoBehaviour
 			if(m_scoreTxtP1 != null)
 			{
 				m_scoreTxtP1.text = m_actualScoreP1.ToString();
-			}
+                scoreP1.SetTrigger("EarnScoreP1");
+            }
 		}
 		else
 		{
 			if(m_scoreTxtP2 != null)
 			{
 				m_scoreTxtP2.text = m_actualScoreP2.ToString();
-			}
-		}
+                scoreP2.SetTrigger("EarnScoreP2");
+            }
+        }
 	}
 
 	IEnumerator WaitTimeToStartGame()
@@ -190,7 +192,16 @@ public class GameManager : MonoBehaviour
 				}
 			}
 		}
-	}
+
+        if(m_actualScoreP1 > m_actualScoreP2)
+        {
+            scoreP1.SetTrigger("EndGameP1");
+        }
+        else if(m_actualScoreP1 < m_actualScoreP2)
+        {
+            scoreP2.SetTrigger("EndGameP2");
+        }
+    }
 
 	IEnumerator OpenTraps(float waitTimeToOpen)
 	{
