@@ -155,7 +155,7 @@ public class ConveyorController : MonoBehaviour
 
             m_gameManager.On_PotArrivedAtTheEndOfConveyor(m_player.m_playerId);
             
-            // m_inputGenerationController.OnLoseCombo();
+            m_inputGenerationController.OnLoseCombo(false);
 
             StopTimerInputGeneration();
 
@@ -177,7 +177,8 @@ public class ConveyorController : MonoBehaviour
     }
     public void On_PotIsBreak()
     {
-        m_actualRepairPot.On_PotIsBreak();
+        if(m_actualRepairPot != null)
+            m_actualRepairPot.On_PotIsBreak();
         m_actualRepairPot = null; // En test
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();

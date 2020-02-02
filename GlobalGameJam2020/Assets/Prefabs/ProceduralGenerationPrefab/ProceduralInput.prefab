@@ -700,6 +700,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d1eb1baf40df0774a84ec492154a965e, type: 3}
   reparingFX: {fileID: 162494374914332541, guid: 9409db88b2f337344b59bcabac3a6e17,
     type: 3}
+  potOffsetReparingPos: {x: 0, y: 1, z: 1}
 --- !u!1 &7252846098444674880
 GameObject:
   m_ObjectHideFlags: 0

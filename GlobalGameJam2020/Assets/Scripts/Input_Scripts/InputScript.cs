@@ -207,8 +207,8 @@ public class InputScript : MonoBehaviour
         StartCoroutine(InputFadeWhiteFeedBack(animationFadeWhite, timeOfFadeWhiteAnim));
         StartCoroutine(FeedBackFailOrSucces(animationSuccesOrFailure, timeOfSuccesOrFailureAnim, m_childImage.gameObject.transform));
 
-
-        Level.AddFX(Controller.reparingFX, Convoyer.ActualRepairPot.transform.position, Quaternion.identity);
+        if(Convoyer.ActualRepairPot != null)
+            Level.AddFX(Controller.reparingFX, Convoyer.ActualRepairPot.transform.position + Controller.potOffsetReparingPos, Quaternion.identity);
         
 
         if (CheckPressedInput(pressedInput))

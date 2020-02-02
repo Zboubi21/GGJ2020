@@ -38,24 +38,34 @@ public class PlayerController : MonoBehaviour
         {
             m_targetZPos = m_playerConvoyer.GetRepairPot().transform.position.z;
             transform.position = new Vector3(transform.position.x, transform.position.y, m_targetZPos);
+
+            m_animator.SetBool("Run", true);
+            // m_animator.SetBool("IsRepair", true);
+            MoveAccordingToPlayerId();
+            // m_animator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            // m_animator.SetBool("IsRepair", false);
+            // m_animator.SetLayerWeight(1, 0);
         }
     }
 
     IEnumerator MovePlayer(Vector3 toPos)
     {
         m_animator.SetBool("Run", true);
-        if(m_playerId == 1)
-        {
-            m_animator.SetBool("GoToRight", false);
-            m_animator.SetBool("GoToLeft", true);
-        }
-        else
-        {
-            m_animator.SetBool("GoToRight", true);
-            m_animator.SetBool("GoToLeft", false);
-        }
+        // if(m_playerId == 1)
+        // {
+        //     m_animator.SetBool("GoToRight", false);
+        //     m_animator.SetBool("GoToLeft", true);
+        // }
+        // else
+        // {
+        //     m_animator.SetBool("GoToRight", true);
+        //     m_animator.SetBool("GoToLeft", false);
+        // }
+        MoveAccordingToPlayerId();
             
-
         Vector3 fromPos = transform.position;
         float fracJourney = 0;
         float distance = Vector3.Distance(fromPos, toPos);
@@ -107,6 +117,20 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         m_animator.SetTrigger("StartPose");
+    }
+
+    void MoveAccordingToPlayerId()
+    {
+        if(m_playerId == 1)
+        {
+            m_animator.SetBool("GoToRight", false);
+            m_animator.SetBool("GoToLeft", true);
+        }
+        else
+        {
+            m_animator.SetBool("GoToRight", true);
+            m_animator.SetBool("GoToLeft", false);
+        }
     }
 
     public void On_StartToFollowPot(bool followPot)

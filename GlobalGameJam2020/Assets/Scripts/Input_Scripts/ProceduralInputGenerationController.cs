@@ -29,6 +29,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     float _currentPassingTime;
     [Header("Repairing FX")]
     public GameObject reparingFX;
+    public Vector3 potOffsetReparingPos = new Vector3(0, 0.5f, 0);
     List<GameObject> instantiatedInput = new List<GameObject>();
     public List<GameObject> InstantiatedInput { get => instantiatedInput; }
 
@@ -138,7 +139,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
     }
 
-    public void OnLoseCombo()
+    public void OnLoseCombo(bool needSound = true)
     {
         if(comboCount - 1 >= 1)
         {
@@ -147,7 +148,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
         }
         StartCoroutine(OnHideCanvasGroupe());
 
-        if (source != null && inputSound[0] != null)
+        if (source != null && inputSound[0] != null && needSound)
         {
             int random = Random.Range(0, inputSound.Length);
             source.clip = inputSound[random];
