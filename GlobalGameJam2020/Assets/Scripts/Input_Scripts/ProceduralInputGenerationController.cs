@@ -21,7 +21,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     public float timeForPatternWithoutCombo;
     [Space]
     [Header("ComboFeedback")]
-    public int ultraCombo;
+    int ultraCombo;
     public TextMeshProUGUI _tmp;
     public TextMeshProUGUI _comboBackground;
     public TMP_ColorGradient[] _Tmp_ColorGradiant;
@@ -53,6 +53,7 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         m_playerID = m_playerController.m_playerId;
         OnResetTimer();
+        ultraCombo = GameManager.s_instance.UltraCombo;
     }
     void Update()
     {

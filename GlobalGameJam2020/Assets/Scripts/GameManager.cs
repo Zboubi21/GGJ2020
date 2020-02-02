@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Conveyor")]
 	[SerializeField] ConveyorController[] m_conveyors;
+    public int UltraCombo;
 
 	[Header("Timer")]
 	[SerializeField] Animator m_showTimerAnim;
@@ -28,7 +29,9 @@ public class GameManager : MonoBehaviour
     [Header("Score")]
 	[SerializeField] TextMeshProUGUI m_scoreTxtP1;
 	[SerializeField] TextMeshProUGUI m_scoreTxtP2;
-	[Space]
+    public Animator scoreP1;
+    public Animator scoreP2;
+    [Space]
 	[SerializeField] int m_potScoreValue = 1;
 
     [Header("Patern Var")]
@@ -173,6 +176,7 @@ public class GameManager : MonoBehaviour
 	void On_PartyIsFinished()
 	{
 		m_camera.SwitchCameraToEndGame();
+        GameOver = true;
         Level.AddFX(m_EndgameSFX, Vector3.zero, Quaternion.identity);
         if (m_conveyors != null)
 		{
@@ -199,18 +203,54 @@ public class GameManager : MonoBehaviour
 	public void On_PotIsBroken(int playerId)
 	{
 		if(playerId == 1 && m_actualComboNbrP1 > 1)
-			m_actualComboNbrP1 --;
+        {
+            if(m_actualComboNbrP1 <= UltraCombo)
+            {
+			    m_actualComboNbrP1 --;
+            }
+            else
+            {
+                m_actualComboNbrP1 = UltraCombo;
+            }
+        }
 
 		if(playerId == 2 && m_actualComboNbrP2 > 1)
-			m_actualComboNbrP2 --;
+        {
+            if (m_actualComboNbrP2 <= UltraCombo)
+            {
+                m_actualComboNbrP2--;
+            }
+            else
+            {
+                m_actualComboNbrP2 = UltraCombo;
+            }
+        }
 	}
 	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
 	{
-		if(playerId == 1 && m_actualComboNbrP1 > 1)
-			m_actualComboNbrP1 --;
+        if (playerId == 1 && m_actualComboNbrP1 > 1)
+        {
+            if (m_actualComboNbrP1 <= UltraCombo)
+            {
+                m_actualComboNbrP1--;
+            }
+            else
+            {
+                m_actualComboNbrP1 = UltraCombo;
+            }
+        }
 
-		if(playerId == 2 && m_actualComboNbrP2 > 1)
-			m_actualComboNbrP2 --;
-	}
+        if (playerId == 2 && m_actualComboNbrP2 > 1)
+        {
+            if (m_actualComboNbrP2 <= UltraCombo)
+            {
+                m_actualComboNbrP2--;
+            }
+            else
+            {
+                m_actualComboNbrP2 = UltraCombo;
+            }
+        }
+    }
 
 }
