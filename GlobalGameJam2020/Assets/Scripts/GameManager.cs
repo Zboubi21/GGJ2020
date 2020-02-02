@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,6 +58,9 @@ public class GameManager : MonoBehaviour
 	int m_actualComboNbrP2 = 1;
     public int ActualComboNbrP2 { get => m_actualComboNbrP2; }
 
+    bool m_canResetGame = false;
+    [SerializeField] Animator m_endGameMenu;
+
     void Awake()
     {
         if(s_instance == null){
@@ -84,6 +88,11 @@ public class GameManager : MonoBehaviour
 
 	void Update()
 	{
+        if(m_canResetGame && Input.GetButtonDown("Start"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
 		if(!m_partyIsStarted)
 			return;
 
@@ -207,6 +216,9 @@ public class GameManager : MonoBehaviour
         {
             scoreP2.SetTrigger("EndGameP2");
         }
+
+        m_canResetGame = true;
+        m_endGameMenu.SetTrigger("Start");
     }
 
 	IEnumerator OpenTraps(float waitTimeToOpen)

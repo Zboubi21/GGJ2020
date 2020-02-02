@@ -1756,6 +1756,31 @@ PrefabInstance:
       propertyPath: m_traps.Array.data[1]
       value: 
       objectReference: {fileID: 203794886}
+    - target: {fileID: 8973600739959766722, guid: 069d3838d85fafc40a2c805d8113664c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973600739959766722, guid: 069d3838d85fafc40a2c805d8113664c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973600739959766722, guid: 069d3838d85fafc40a2c805d8113664c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973600739959766722, guid: 069d3838d85fafc40a2c805d8113664c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973600739959766722, guid: 069d3838d85fafc40a2c805d8113664c,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 069d3838d85fafc40a2c805d8113664c, type: 3}
 --- !u!1001 &771593030
