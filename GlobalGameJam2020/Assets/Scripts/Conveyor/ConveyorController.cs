@@ -77,6 +77,7 @@ public class ConveyorController : MonoBehaviour
 
         Gizmos.color = m_gizmosColor;
         Gizmos.DrawSphere(m_spawnPotPos.position, m_gizmosSize);
+
         Gizmos.DrawSphere(m_startPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_startPlayerPos.position, m_gizmosSize);
@@ -166,7 +167,9 @@ public class ConveyorController : MonoBehaviour
 
             m_player.On_StartToFollowPot(false);
             m_player.MoveToStartPos();
-            On_ResetConveyorSpeed();
+
+            // On_ResetConveyorSpeed();
+            On_DecreaseConveyorSpeed();
 
             m_gameManager.On_PotArrivedAtTheEndOfConveyor(m_player.m_playerId);
             
@@ -183,7 +186,7 @@ public class ConveyorController : MonoBehaviour
     {
         float value;
         value = m_player.m_playerId == 1 ? m_gameManager.ActualComboNbrP1 : m_gameManager.ActualComboNbrP2;
-        if(value < 15 && value > 1)
+        if(value < m_gameManager.UltraCombo && value > 1)
         {
             m_actualTimeToMovePot += m_decreaseConveyorTimeToMove;
             // if (m_actualTimeToMovePot < m_minConveyorTimeToMoveValue)
@@ -212,7 +215,9 @@ public class ConveyorController : MonoBehaviour
         m_actualRepairPot = null; // En test
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
-        On_ResetConveyorSpeed();
+
+        // On_ResetConveyorSpeed();
+        On_DecreaseConveyorSpeed();
 
         m_gameManager.On_PotIsBroken(m_player.m_playerId);
 
