@@ -20,7 +20,14 @@ public class ProceduralInputGenerationController : MonoBehaviour
     [Space]
     public float timeForPatternWithoutCombo;
     [Space]
+    [Header("ComboFeedback")]
+    public int ultraCombo;
     public TextMeshProUGUI _tmp;
+    public TextMeshProUGUI _comboBackground;
+    public TMP_ColorGradient[] _Tmp_ColorGradiant;
+    [Space]
+    [Header("Win/Lose Combo FeedBack")]
+    public Animator animationCombo;
     [Space]
     public CanvasGroup canvasGroup;
     [Space]
@@ -143,8 +150,20 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         if(comboCount - 1 >= 1)
         {
-            comboCount--;
+            if (comboCount > ultraCombo)
+            {
+                comboCount = ultraCombo;
+                animationCombo.SetTrigger("UltraLose");
+            }
+            else
+            {
+                comboCount--;
+                _tmp.colorGradientPreset = _Tmp_ColorGradiant[0];
+                _comboBackground.colorGradientPreset = _Tmp_ColorGradiant[1];
+                animationCombo.SetTrigger("ComboLose");
+            }
             _tmp.text = string.Format("X {0}", comboCount);
+            _comboBackground.text = string.Format("X {0}", comboCount);
         }
         StartCoroutine(OnHideCanvasGroupe());
 
@@ -160,6 +179,20 @@ public class ProceduralInputGenerationController : MonoBehaviour
     {
         comboCount++;
         _tmp.text = string.Format("X {0}", comboCount);
+        _comboBackground.text = string.Format("X {0}", comboCount);
+        if(comboCount == ultraCombo)
+        {
+            _tmp.colorGradientPreset = _Tmp_ColorGradiant[1];
+            _comboBackground.colorGradientPreset = _Tmp_ColorGradiant[1];
+        }
+        else if (comboCount > ultraCombo)
+        {
+            animationCombo.SetTrigger("UltraWin");
+        }
+        else if (comboCount < ultraCombo)
+        {
+            animationCombo.SetTrigger("ComboWin");
+        }
         StartCoroutine(OnHideCanvasGroupe());
     }
 

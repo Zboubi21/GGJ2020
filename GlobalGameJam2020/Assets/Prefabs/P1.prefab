@@ -162,6 +162,22 @@ PrefabInstance:
       propertyPath: m_conveyorController
       value: 
       objectReference: {fileID: 1597975391161589824}
+    - target: {fileID: 1846857920, guid: 55ddd29276f61234f944eb845fe40d30, type: 3}
+      propertyPath: m_text
+      value: X 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846857920, guid: 55ddd29276f61234f944eb845fe40d30, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846857919, guid: 55ddd29276f61234f944eb845fe40d30, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1846857919, guid: 55ddd29276f61234f944eb845fe40d30, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.95
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55ddd29276f61234f944eb845fe40d30, type: 3}
 --- !u!114 &1597975391567572050 stripped
@@ -183,11 +199,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1597975389667558661}
     m_Modifications:
-    - target: {fileID: 4512396677427065336, guid: 52fcf3f876e043540b13f1e3e30319a9,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4512396677427065337, guid: 52fcf3f876e043540b13f1e3e30319a9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -258,6 +269,11 @@ PrefabInstance:
       propertyPath: m_playerId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4512396677427065336, guid: 52fcf3f876e043540b13f1e3e30319a9,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 7764833913994952256, guid: 52fcf3f876e043540b13f1e3e30319a9,
         type: 3}
       propertyPath: m_Mesh
@@ -295,11 +311,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1597975389667558661}
     m_Modifications:
-    - target: {fileID: 4524938441100020000, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
+    - target: {fileID: 4524938441100020003, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
         type: 3}
-      propertyPath: m_Name
-      value: Conveyor
-      objectReference: {fileID: 0}
+      propertyPath: m_inputGenerationController
+      value: 
+      objectReference: {fileID: 1597975391567572050}
     - target: {fileID: 4524938441100020002, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,11 +371,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4524938441100020003, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
+    - target: {fileID: 4524938441100020000, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
         type: 3}
-      propertyPath: m_inputGenerationController
-      value: 
-      objectReference: {fileID: 1597975391567572050}
+      propertyPath: m_Name
+      value: Conveyor
+      objectReference: {fileID: 0}
     - target: {fileID: 4524938440618556286, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -394,11 +410,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6943743586859414150, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7528527561314581973, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
         type: 3}
@@ -509,6 +520,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -16.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943743586859414150, guid: 816cfd8fbea24ee4da50f6ff55a2037b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 816cfd8fbea24ee4da50f6ff55a2037b, type: 3}
