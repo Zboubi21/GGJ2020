@@ -66,6 +66,8 @@ public class ConveyorController : MonoBehaviour
     void Start()
     {
         m_gameManager = GameManager.s_instance;
+
+        m_decreaseConveyorTimeToMove = m_startTimeToMovePot / m_gameManager.UltraCombo;
     }
 
     void OnDrawGizmos()
@@ -75,6 +77,7 @@ public class ConveyorController : MonoBehaviour
 
         Gizmos.color = m_gizmosColor;
         Gizmos.DrawSphere(m_spawnPotPos.position, m_gizmosSize);
+
         Gizmos.DrawSphere(m_startPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_startPlayerPos.position, m_gizmosSize);
@@ -164,7 +167,9 @@ public class ConveyorController : MonoBehaviour
 
             m_player.On_StartToFollowPot(false);
             m_player.MoveToStartPos();
-            On_ResetConveyorSpeed();
+
+            // On_ResetConveyorSpeed();
+            On_DecreaseConveyorSpeed();
 
             m_gameManager.On_PotArrivedAtTheEndOfConveyor(m_player.m_playerId);
             
@@ -172,6 +177,21 @@ public class ConveyorController : MonoBehaviour
 
             StopTimerInputGeneration();
 
+            // Baisser de 1 la valeur de vitesse du conveyor si le score est > 15
+            StopTimerInputGeneration();
+        }
+    }
+
+    void On_DecreaseConveyorSpeed()
+    {
+        float value;
+        value = m_player.m_playerId == 1 ? m_gameManager.ActualComboNbrP1 : m_gameManager.ActualComboNbrP2;
+        if(value < m_gameManager.UltraCombo && value > 1)
+        {
+            m_actualTimeToMovePot += m_decreaseConveyorTimeToMove;
+            // if (m_actualTimeToMovePot < m_minConveyorTimeToMoveValue)
+                // m_actualTimeToMovePot = m_minConveyorTimeToMoveValue;
+            SetConveyorSpeed();
         }
     }
 
@@ -195,7 +215,9 @@ public class ConveyorController : MonoBehaviour
         m_actualRepairPot = null; // En test
         m_player.On_StartToFollowPot(false);
         m_player.MoveToStartPos();
-        On_ResetConveyorSpeed();
+
+        // On_ResetConveyorSpeed();
+        On_DecreaseConveyorSpeed();
 
         m_gameManager.On_PotIsBroken(m_player.m_playerId);
 
@@ -215,6 +237,8 @@ public class ConveyorController : MonoBehaviour
     {
         m_actualRepairPot = null; // En test
 
+        m_player.On_StartToFollowPot(false);
+
         for (int i = 0, l = m_potsOnConveyor.Count; i < l; ++i)
         {
             m_potsOnConveyor[i].On_ConveyorIsStopped();
@@ -226,6 +250,9 @@ public class ConveyorController : MonoBehaviour
         }
 
         m_player.MoveToEndGamePos();
+
+        StopAllCoroutines();
+        StopTimerInputGeneration();
     }
 
 }

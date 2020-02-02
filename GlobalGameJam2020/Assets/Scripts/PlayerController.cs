@@ -169,6 +169,7 @@ public class PlayerController : MonoBehaviour
     }
     public void MoveToEndGamePos()
     {
+        StopAllCoroutines();
         StartCoroutine(RotatePlayerToEndGamePos());
     }
     

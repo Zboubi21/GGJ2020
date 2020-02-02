@@ -52,8 +52,10 @@ public class GameManager : MonoBehaviour
 
 	int m_actualScoreP1 = 0;
 	int m_actualComboNbrP1 = 1;
+    public int ActualComboNbrP1 { get => m_actualComboNbrP1; }
 	int m_actualScoreP2 = 0;
 	int m_actualComboNbrP2 = 1;
+    public int ActualComboNbrP2 { get => m_actualComboNbrP2; }
 
     void Awake()
     {
@@ -133,7 +135,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(playerId == 1)
 		{
-			m_actualScoreP1 += m_potScoreValue * m_actualComboNbrP1;
+			m_actualScoreP1 += m_potScoreValue * ActualComboNbrP1;
 		}
 		else
 		{
@@ -232,9 +234,9 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotIsBroken(int playerId)
 	{
-		if(playerId == 1 && m_actualComboNbrP1 > 1)
+		if(playerId == 1 && ActualComboNbrP1 > 1)
         {
-            if(m_actualComboNbrP1 <= UltraCombo)
+            if(ActualComboNbrP1 <= UltraCombo)
             {
 			    m_actualComboNbrP1 --;
             }
@@ -258,9 +260,9 @@ public class GameManager : MonoBehaviour
 	}
 	public void On_PotArrivedAtTheEndOfConveyor(int playerId)
 	{
-        if (playerId == 1 && m_actualComboNbrP1 > 1)
+        if (playerId == 1 && ActualComboNbrP1 > 1)
         {
-            if (m_actualComboNbrP1 <= UltraCombo)
+            if (ActualComboNbrP1 <= UltraCombo)
             {
                 m_actualComboNbrP1--;
             }

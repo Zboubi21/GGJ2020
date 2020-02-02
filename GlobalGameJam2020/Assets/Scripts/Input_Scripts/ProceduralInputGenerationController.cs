@@ -201,7 +201,6 @@ public class ProceduralInputGenerationController : MonoBehaviour
         }
         else if (comboCount < ultraCombo)
         {
-            Debug.Log("Hop");
             animationCombo.SetTrigger("ComboWin");
         }
         StartCoroutine(OnHideCanvasGroupe());
