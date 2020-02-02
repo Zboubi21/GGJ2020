@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] CameraController m_camera;
 
     [Header("Mise en scene")]
-    [SerializeField] Animator m_stagingAnim;
+	[SerializeField] Animator[] m_traps = new Animator[2];
 
     public bool GameOver;
 
@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
 		m_animator.SetTrigger("Start");
         Level.AddFX(m_CountdownSFX, Vector3.zero, Quaternion.identity);
         StartCoroutine(WaitTimeToStartGame());
+
+		StartCoroutine(OpenTraps(m_waitTimeToStartGame - 0.5f));
 
 		UpdateTimerText();
 	}
@@ -186,6 +188,19 @@ public class GameManager : MonoBehaviour
 				{
 					m_conveyors[i].On_ConveyorStop();
 				}
+			}
+		}
+	}
+
+	IEnumerator OpenTraps(float waitTimeToOpen)
+	{
+		yield return new WaitForSeconds(waitTimeToOpen);
+		if(m_traps != null)
+		{
+			for (int i = 0, l = m_traps.Length; i < l; ++i)
+			{
+				if(m_traps[i] != null)
+					m_traps[i].SetTrigger("Start");
 			}
 		}
 	}
