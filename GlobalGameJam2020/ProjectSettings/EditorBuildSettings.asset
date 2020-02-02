@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Quentin_Scene.unity
+    guid: f22db4e355314ec48ae1a8162e1280b7
   m_configObjects: {}
