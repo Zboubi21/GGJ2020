@@ -59,6 +59,13 @@ public class ProceduralInputGenerationController : MonoBehaviour
 
         //transform.LookAt(Camera.main.transform);
 
+        if (GameManager.s_instance.GameOver && _comboBackground.gameObject.activeSelf)
+        {
+            canvasGroup.alpha = 0;
+            _tmp.gameObject.SetActive(false);
+            _comboBackground.gameObject.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             OnSpriteGeneration();

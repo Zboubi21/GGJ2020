@@ -1000,8 +1000,8 @@ MonoBehaviour:
   m_timerTextValue: {fileID: 6488786813188213152}
   m_EndgameSFX: {fileID: 4083715261397931662, guid: 39aa2b25b167dd849945dbfff7554711,
     type: 3}
-  m_scoreTxtP1: {fileID: 3260381213511486459}
-  m_scoreTxtP2: {fileID: 3573339724522075599}
+  m_scoreTxtP1: {fileID: 3573339724522075599}
+  m_scoreTxtP2: {fileID: 3260381213511486459}
   m_potScoreValue: 1
   punishTimeForFaillingPatern: 0.5
   m_camera: {fileID: 0}

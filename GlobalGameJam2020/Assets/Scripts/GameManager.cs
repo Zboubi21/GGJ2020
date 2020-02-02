@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour
     [Header("Mise en scene")]
     [SerializeField] Animator m_stagingAnim;
 
+    public bool GameOver;
+
     bool m_partyIsStarted = false;
 
 	float m_actualTimer;

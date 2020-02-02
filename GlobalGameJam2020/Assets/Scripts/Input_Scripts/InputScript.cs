@@ -88,7 +88,7 @@ public class InputScript : MonoBehaviour
 
     private void Update()
     {
-        if (IsCheckable)
+        if (IsCheckable && !GameManager.s_instance.GameOver)
         {
             if ((Input.GetButtonDown("A_P" + PlayerID) && BoolArray(1, 2, 3, 4, 5, 6, 7)) || !isPressed[0] )
             {
