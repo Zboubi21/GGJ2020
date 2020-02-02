@@ -11,6 +11,7 @@ public class ConveyorController : MonoBehaviour
     [SerializeField] Transform m_spawnRoot;
 
     [Header("Positions")]
+    public Transform m_spawnPotPos;
     public Transform m_startPos;
     public Transform m_endPos;
     public Transform m_startPlayerPos;
@@ -72,6 +73,7 @@ public class ConveyorController : MonoBehaviour
             return;
 
         Gizmos.color = m_gizmosColor;
+        Gizmos.DrawSphere(m_spawnPotPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_startPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_startPlayerPos.position, m_gizmosSize);

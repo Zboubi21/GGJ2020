@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ConveyorController m_playerConvoyer;
     [SerializeField] float m_moveSpeed = 5;
     [SerializeField] float m_rotateSpeed = 5;
+
+    [Header("Player")]
+    [SerializeField] GameObject m_fishy;
+    [SerializeField] GameObject m_tanuki;
     [SerializeField] Animator m_animator;
 
     bool m_followPot = false;
@@ -21,6 +25,17 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if(m_playerId == 1)
+        {
+            m_fishy.SetActive(true);
+            m_tanuki.SetActive(false);
+        }
+        else
+        {
+            m_fishy.SetActive(false);
+            m_tanuki.SetActive(true);
+        }
+
         m_playerConvoyer.SetPlayerToConveyor(this);
         m_startPlayerPos = m_playerConvoyer.m_startPlayerPos.position;
         m_endGamePlayerPos = m_playerConvoyer.m_endGamePlayerPos.position;
@@ -40,31 +55,34 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, m_targetZPos);
 
             m_animator.SetBool("Run", true);
-            // m_animator.SetBool("IsRepair", true);
-            MoveAccordingToPlayerId();
-            // m_animator.SetLayerWeight(1, 1);
-        }
-        else
-        {
-            // m_animator.SetBool("IsRepair", false);
-            // m_animator.SetLayerWeight(1, 0);
+
+            if(m_playerId == 1)
+            {
+                m_animator.SetBool("GoToRight", true);
+                m_animator.SetBool("GoToLeft", false);
+            }
+            else
+            {
+                m_animator.SetBool("GoToRight", false);
+                m_animator.SetBool("GoToLeft", true);
+            }
         }
     }
 
     IEnumerator MovePlayer(Vector3 toPos)
     {
         m_animator.SetBool("Run", true);
-        // if(m_playerId == 1)
-        // {
-        //     m_animator.SetBool("GoToRight", false);
-        //     m_animator.SetBool("GoToLeft", true);
-        // }
-        // else
-        // {
-        //     m_animator.SetBool("GoToRight", true);
-        //     m_animator.SetBool("GoToLeft", false);
-        // }
-        MoveAccordingToPlayerId();
+
+        if(m_playerId == 1)
+        {
+            m_animator.SetBool("GoToRight", false);
+            m_animator.SetBool("GoToLeft", true);
+        }
+        else
+        {
+            m_animator.SetBool("GoToRight", true);
+            m_animator.SetBool("GoToLeft", false);
+        }
             
         Vector3 fromPos = transform.position;
         float fracJourney = 0;
@@ -103,6 +121,14 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator MovePlayerToEndGamePos()
     {
+        if(m_playerId == 1)
+        {
+            m_animator.SetTrigger("LastRun1");
+        }
+        else
+        {
+            m_animator.SetTrigger("LastRun2");
+        }
         Vector3 fromPos = transform.position;
         Vector3 toPos = m_endGamePlayerPos;
         float fracJourney = 0;
