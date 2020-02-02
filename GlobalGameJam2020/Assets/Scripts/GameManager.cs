@@ -14,15 +14,18 @@ public class GameManager : MonoBehaviour
 
     [Header("Countdown")]
 	[SerializeField] Animator m_animator;
+    public GameObject m_CountdownSFX;
+    
 
-	[Header("Conveyor")]
+    [Header("Conveyor")]
 	[SerializeField] ConveyorController[] m_conveyors;
 
 	[Header("Timer")]
 	[SerializeField] Animator m_showTimerAnim;
 	[SerializeField] TextMeshProUGUI m_timerTextValue;
+    public GameObject m_EndgameSFX;
 
-	[Header("Score")]
+    [Header("Score")]
 	[SerializeField] TextMeshProUGUI m_scoreTxtP1;
 	[SerializeField] TextMeshProUGUI m_scoreTxtP2;
 	[Space]
@@ -64,7 +67,8 @@ public class GameManager : MonoBehaviour
 		UpdateScoreText(2);
 
 		m_animator.SetTrigger("Start");
-		StartCoroutine(WaitTimeToStartGame());
+        Level.AddFX(m_CountdownSFX, Vector3.zero, Quaternion.identity);
+        StartCoroutine(WaitTimeToStartGame());
 
 		UpdateTimerText();
 	}
@@ -167,8 +171,8 @@ public class GameManager : MonoBehaviour
 	void On_PartyIsFinished()
 	{
 		m_camera.SwitchCameraToEndGame();
-
-		if(m_conveyors != null)
+        Level.AddFX(m_EndgameSFX, Vector3.zero, Quaternion.identity);
+        if (m_conveyors != null)
 		{
 			for (int i = 0, l = m_conveyors.Length; i < l; ++i)
 			{
