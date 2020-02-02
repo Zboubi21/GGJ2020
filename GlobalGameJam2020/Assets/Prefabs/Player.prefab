@@ -47,6 +47,7 @@ MonoBehaviour:
   m_playerId: 0
   m_playerConvoyer: {fileID: 0}
   m_moveSpeed: 10
+  m_rotateSpeed: 10
   m_animator: {fileID: 7405317431833190636}
 --- !u!1001 &7405317431842575756
 PrefabInstance:

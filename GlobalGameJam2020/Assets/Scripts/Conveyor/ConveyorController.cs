@@ -14,6 +14,7 @@ public class ConveyorController : MonoBehaviour
     public Transform m_startPos;
     public Transform m_endPos;
     public Transform m_startPlayerPos;
+    public Transform m_endGamePlayerPos;
 
     [Header("Rotators")]
     [SerializeField] ConveyorRotator[] m_rotators;
@@ -74,6 +75,7 @@ public class ConveyorController : MonoBehaviour
         Gizmos.DrawSphere(m_startPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_startPlayerPos.position, m_gizmosSize);
+        Gizmos.DrawSphere(m_endGamePlayerPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endAnimZPos.position, m_gizmosSize);
         Gizmos.DrawSphere(m_endAnimYPos.position, m_gizmosSize);
     }
@@ -152,8 +154,11 @@ public class ConveyorController : MonoBehaviour
             On_ResetConveyorSpeed();
 
             m_gameManager.On_PotArrivedAtTheEndOfConveyor(m_player.m_playerId);
+            
+            // m_inputGenerationController.OnLoseCombo();
 
             StopTimerInputGeneration();
+
         }
     }
 
@@ -194,9 +199,19 @@ public class ConveyorController : MonoBehaviour
     }
     public void On_ConveyorStop()
     {
-        m_actualTimeToMovePot = 0;
-        SetConveyorSpeed();
-        SetPotsSpeed();
+        m_actualRepairPot = null; // En test
+
+        for (int i = 0, l = m_potsOnConveyor.Count; i < l; ++i)
+        {
+            m_potsOnConveyor[i].On_ConveyorIsStopped();
+        }
+
+        for (int i = 0, l = m_rotators.Length; i < l; ++i)
+        {
+            m_rotators[i].On_ConveyorIsStopped();
+        }
+
+        m_player.MoveToEndGamePos();
     }
 
 }

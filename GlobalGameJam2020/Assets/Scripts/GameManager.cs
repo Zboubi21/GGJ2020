@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
 			m_actualTimer = 0;
 		}
 		UpdateTimerText();
-		if(m_actualTimer < 0 && !m_partyIsFinished)
+		if(m_actualTimer == 0 && !m_partyIsFinished)
 		{
 			m_partyIsFinished = true;
 			On_PartyIsFinished();
@@ -168,7 +168,6 @@ public class GameManager : MonoBehaviour
 	{
 		m_camera.SwitchCameraToEndGame();
 
-		// Arrêter de faire spawn les pots et bouger le conveyor !
 		if(m_conveyors != null)
 		{
 			for (int i = 0, l = m_conveyors.Length; i < l; ++i)

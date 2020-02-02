@@ -170,6 +170,11 @@ public class Pot : MonoBehaviour
         StartCoroutine(SetVisibleMesh(MeshType.Break, m_fx.m_delayToChangePotMesh));
     }
 
+    public void On_ConveyorIsStopped()
+    {
+        StopAllCoroutines();
+    }
+
     public void DestroyPot()
     {
         m_conveyor.On_PotIsDestroy(this);
