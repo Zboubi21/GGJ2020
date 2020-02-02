@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Conveyor")]
 	[SerializeField] ConveyorController[] m_conveyors;
-    public int UltraCombo;
+    public int UltraCombo = 15;
 
 	[Header("Timer")]
 	[SerializeField] Animator m_showTimerAnim;

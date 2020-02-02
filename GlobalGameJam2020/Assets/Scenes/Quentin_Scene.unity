@@ -1127,66 +1127,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1597975390776494522, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -8.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597975390776494522, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597975390776494522, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597975390776494522, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597975390776494522, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4594146706168624929, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2042460398}
-    - target: {fileID: 1629054936894642173, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1629054936894642173, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.47000027
-      objectReference: {fileID: 0}
-    - target: {fileID: 1629054936894642173, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1629054936894642173, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1629054936894642173, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -8.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 3466525094405520167, guid: 4dff42b6ccec5174cb9e7b956d426b1c,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 1509949439
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dff42b6ccec5174cb9e7b956d426b1c, type: 3}
 --- !u!1001 &546352059
