@@ -185,8 +185,9 @@ public class ProceduralInputGenerationController : MonoBehaviour
         {
             _tmp.colorGradientPreset = _Tmp_ColorGradiant[1];
             _comboBackground.colorGradientPreset = _Tmp_ColorGradiant[1];
+            animationCombo.SetTrigger("UltraWin");
         }
-        else if (comboCount >= ultraCombo)
+        else if (comboCount > ultraCombo)
         {
             animationCombo.SetTrigger("UltraWin");
         }
