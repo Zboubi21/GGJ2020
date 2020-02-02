@@ -913,7 +913,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05bcb1392cbebbf49b58eea96a0766bf, type: 2}
   - {fileID: 11400000, guid: a172ef8d7560d954e82858c706f85c15, type: 2}
   animationCombo: {fileID: 1049562713066857638}
-  animationLoseCombo: {fileID: 0}
+  animationLoseCombo: {fileID: 5216401672151381344}
   canvasGroup: {fileID: 506967402994400726}
   source: {fileID: 4870700741202737545}
   inputSound:
