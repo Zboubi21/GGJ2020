@@ -150,7 +150,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_endGameCamera:
-    m_toPos: {x: -7.86, y: 35.14, z: 37.2}
+    m_toPos: {x: -8.02, y: 32.47, z: 37.46}
     m_timeToMove: 2
     m_moveCurve:
       serializedVersion: 2
