@@ -524,7 +524,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_animator
       value: 
-      objectReference: {fileID: 6616470340419455800}
+      objectReference: {fileID: 1728180541559391701}
     - target: {fileID: 7764833913994952256, guid: 52fcf3f876e043540b13f1e3e30319a9,
         type: 3}
       propertyPath: m_Mesh
@@ -550,6 +550,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 4179145821885489740, guid: 52fcf3f876e043540b13f1e3e30319a9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52fcf3f876e043540b13f1e3e30319a9, type: 3}
 --- !u!4 &1196749337960298948 stripped
@@ -570,9 +575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c758feaa2d6ab944b8122275aaa9a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &6616470340419455800 stripped
+--- !u!95 &1728180541559391701 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 8491142683688157957, guid: 52fcf3f876e043540b13f1e3e30319a9,
+  m_CorrespondingSourceObject: {fileID: 4179145821895003624, guid: 52fcf3f876e043540b13f1e3e30319a9,
     type: 3}
   m_PrefabInstance: {fileID: 3316045638772181053}
   m_PrefabAsset: {fileID: 0}
