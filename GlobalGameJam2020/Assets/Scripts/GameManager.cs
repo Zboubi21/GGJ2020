@@ -121,6 +121,10 @@ public class GameManager : MonoBehaviour
             {
                 m_timerTextValue.color = Color.red;
                 m_showTimerAnim.SetTrigger("Critical");
+                if(m_actualTimer == 0)
+                {
+                    m_showTimerAnim.SetTrigger("StopMoving");
+                }
             }
         }
 	}
